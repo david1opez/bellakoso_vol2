@@ -1,15 +1,8 @@
 /**
- * \file main.h
+ * @file main.h
  *
  * Contains common definitions and header files used throughout your PROS
  * project.
- *
- * \copyright Copyright (c) 2017-2023, Purdue University ACM SIGBots.
- * All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 #ifndef _PROS_MAIN_H_
@@ -22,7 +15,7 @@
  *
  * For instance, E_CONTROLLER_MASTER has a shorter name: CONTROLLER_MASTER.
  * E_CONTROLLER_MASTER is pedantically correct within the PROS styleguide, but
- * not convenient for most student programmers.
+ * not convienent for most student programmers.
  */
 #define PROS_USE_SIMPLE_NAMES
 
@@ -36,30 +29,42 @@
 
 #include "api.h"
 
+/**
+ * Global Constants
+*/
 #include "globals.h"
 
-#include "components/motors.h"
-#include "components/others.h"
+/**
+ * Components
+ */
+#include "./components/motors.h"
+#include "./components/sensors.h"
+#include "./components/others.h"
 
-#include "systems/Drive.h"
 
 /**
- * You should add more #includes here
+ * Autonomous Systems
  */
-//#include "okapi/api.hpp"
-//#include "pros/api_legacy.h"
+#include "./systems/autonomous/routines/AutonomousRoutine.h"
+#include "./systems/autonomous/routines/ProgrammingSkillsRoutine.h"
+#include "./systems/autonomous/ActivateSystem.h"
+#include "./systems/autonomous/Translate.h"
 
 /**
- * If you find doing pros::Motor() to be tedious and you'd prefer just to do
- * Motor, you can use the namespace with the following commented out line.
- *
- * IMPORTANT: Only the okapi or pros namespace may be used, not both
- * concurrently! The okapi namespace will export all symbols inside the pros
- * namespace.
+ * Positioning Systems
+*/
+#include "./systems/positioning/GetCoords.h"
+
+/**
+ * Control Systems
  */
-// using namespace pros;
-// using namespace pros::literals;
-// using namespace okapi;
+#include "./systems/control/Drive.h"
+#include "./systems/control/RestartComponents.h"
+
+/**
+ * PID Systems
+ */
+// #include "./systems/PID/FlywheelPID.h"
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
@@ -80,9 +85,9 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 /**
- * You can add C++-only headers here
+ * C++-only headers down here
  */
-//#include <iostream>
+
 #endif
 
 #endif  // _PROS_MAIN_H_
