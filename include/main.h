@@ -36,6 +36,13 @@
 
 #include "api.h"
 
+#include "globals.h"
+
+#include "components/motors.h"
+#include "components/others.h"
+
+#include "systems/Drive.h"
+
 /**
  * You should add more #includes here
  */
