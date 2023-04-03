@@ -8,6 +8,8 @@
  */
 void initialize() {
 	RestartComponents();
+
+	pros::Task updateCoordsTask(updateCoords);
 }
 
 /**
@@ -56,6 +58,8 @@ void autonomous() {}
  */
 void opcontrol() {
 	while (true) {
-		Drive();
+		// Drive();
+		Translate(10, 10, 0, 30, 5000, "intake", 5000);
+		Translate(0, 0, 0, 30, 5000, "intake", 5000);
 	}
 }

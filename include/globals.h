@@ -19,6 +19,11 @@
 ==================================================
 */
 
+#define INERTIAL_SENSOR_PORT 16 // Inertial Sensor Port
+
+#define Y_AXIS_ENCODER_TOP_PORT 1 // Y Axis Encoder Top Port
+#define Y_AXIS_ENCODER_BOTTOM_PORT 2 // Y Axis Encoder Bottom Port
+
 /*
 ==================================================
     OTHER PORTS
@@ -30,3 +35,7 @@
     CONSTANTS
 ==================================================
 */
+
+#define M_PI 3.14159265358979323846
+
+#define WHEEL_DIAMETER 2.75 // Wheel Diameter (in inches)

@@ -17,6 +17,6 @@
  * @param miliseconds The amount of time to activate the subsystem
  * 
 */
-void ActivateSystem(std::string system, int miliseconds=0);
+void ActivateSystem(std::string system, int miliseconds);
 
 #endif // __ACTIVATE_SYSTEM_H__

@@ -8,23 +8,22 @@ float currentY = 0.0;
 
 float angle = 0.0;
 
-void updateCoords() {
-    const float WHEEL_DIAMETER = 4.0;
-    // Get values from the inertial sensor
-    angle = inertialSensor.get_rotation();
-    float distance = encoderX.getValue() * WHEEL_DIAMETER * M_PI / 360.0;
+void updateCoords(void* param) {
+    while(true) {
+        // Get values from the inertial sensor
+        angle = inertialSensor.get_rotation();
+        float distance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0;
 
-    // Calculate the change in x and y
-    float deltaX = distance * cos(angle * M_PI / 180.0);
-    float deltaY = distance * sin(angle * M_PI / 180.0);
+        // Calculate the change in position
+        float deltaX = distance * cos(angle * M_PI / 180.0);
+        float deltaY = distance * sin(angle * M_PI / 180.0);
 
-    // Update the current x and y
-    currentX = previousX + deltaX;
-    currentY = previousY + deltaY;
+        // Update the current position
+        currentY = previousX + deltaX;
+        currentX = previousY + deltaY;
 
-    // Update the previous x and y
-    previousX = currentX;
-    previousY = currentY;
+        std::cout << "X: " << currentX << " Y: " << currentY << " Angle: " << angle << std::endl;
+    }
 };
 
 float GetX() {

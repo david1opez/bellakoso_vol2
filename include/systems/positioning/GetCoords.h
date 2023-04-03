@@ -15,7 +15,7 @@
  * 
 */
 
-void updateCoords();
+void updateCoords(void* param);
 
 /**
  * @brief Gets the robot's x coordinate

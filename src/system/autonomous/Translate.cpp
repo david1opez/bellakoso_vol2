@@ -27,24 +27,72 @@ void Translate(float x, float y, float angle=0, int speed=100, int timeout=5000,
 
     if(subsystem != "") {
         for(int i = 0; i < subsystemTimeout; i += 20) {
-            ActivateSystem(subsystem);
+            // ActivateSystem(subsystem);
 
             updatePosition();
 
             if(currentAngle > targetAngle + 1) {
                 // Turn left
+                Right_Front_Wheel.move(speed);
+                Right_Back_Top_Wheel.move(speed);
+                Right_Back_Bottom_Wheel.move(speed);
+
+                Left_Front_Wheel.move(-speed);
+                Left_Back_Top_Wheel.move(-speed);
+                Left_Back_Bottom_Wheel.move(-speed);
+
             } else if(currentAngle < targetAngle - 1) {
                 // Turn right
+                Right_Front_Wheel.move(-speed);
+                Right_Back_Top_Wheel.move(-speed);
+                Right_Back_Bottom_Wheel.move(-speed);
+
+                Left_Front_Wheel.move(speed);
+                Left_Back_Top_Wheel.move(speed);
+                Left_Back_Bottom_Wheel.move(speed);
+
             } else {
                 if(distance > 0.5) {
                     // Move forward
+                    Right_Front_Wheel.move(speed);
+                    Right_Back_Top_Wheel.move(speed);
+                    Right_Back_Bottom_Wheel.move(speed);
+
+                    Left_Front_Wheel.move(speed);
+                    Left_Back_Top_Wheel.move(speed);
+                    Left_Back_Bottom_Wheel.move(speed);
+                    
                 } else {
                     if(currentAngle > angle + 1) {
                         // Turn left
+                        Right_Front_Wheel.move(speed);
+                        Right_Back_Top_Wheel.move(speed);
+                        Right_Back_Bottom_Wheel.move(speed);
+
+                        Left_Front_Wheel.move(-speed);
+                        Left_Back_Top_Wheel.move(-speed);
+                        Left_Back_Bottom_Wheel.move(-speed);
+
                     } else if(currentAngle < angle - 1) {
                         // Turn right
+                        Right_Front_Wheel.move(-speed);
+                        Right_Back_Top_Wheel.move(-speed);
+                        Right_Back_Bottom_Wheel.move(-speed);
+
+                        Left_Front_Wheel.move(speed);
+                        Left_Back_Top_Wheel.move(speed);
+                        Left_Back_Bottom_Wheel.move(speed);
+
                     } else {
                         // Stop
+                        Right_Front_Wheel.move(0);
+                        Right_Back_Top_Wheel.move(0);
+                        Right_Back_Bottom_Wheel.move(0);
+
+                        Left_Front_Wheel.move(0);
+                        Left_Back_Top_Wheel.move(0);
+                        Left_Back_Bottom_Wheel.move(0);
+                        
                     }
                 }
             }
@@ -52,7 +100,7 @@ void Translate(float x, float y, float angle=0, int speed=100, int timeout=5000,
             pros::delay(1);
         };
 
-        ActivateSystem(subsystem, 0);
+        // ActivateSystem(subsystem, 0);
 
         updatePosition();
 
@@ -61,18 +109,65 @@ void Translate(float x, float y, float angle=0, int speed=100, int timeout=5000,
         while (!arrived && timeout > 0) { 
             if(currentAngle > targetAngle + 1) {
                 // Turn left
+                Right_Front_Wheel.move(speed);
+                Right_Back_Top_Wheel.move(speed);
+                Right_Back_Bottom_Wheel.move(speed);
+
+                Left_Front_Wheel.move(-speed);
+                Left_Back_Top_Wheel.move(-speed);
+                Left_Back_Bottom_Wheel.move(-speed);
+                
             } else if(currentAngle < targetAngle - 1) {
                 // Turn right
+                Right_Front_Wheel.move(-speed);
+                Right_Back_Top_Wheel.move(-speed);
+                Right_Back_Bottom_Wheel.move(-speed);
+
+                Left_Front_Wheel.move(speed);
+                Left_Back_Top_Wheel.move(speed);
+                Left_Back_Bottom_Wheel.move(speed);
+
             } else {
                 if(distance > 0.5) {
                     // Move forward
+                    Right_Front_Wheel.move(speed);
+                    Right_Back_Top_Wheel.move(speed);
+                    Right_Back_Bottom_Wheel.move(speed);
+
+                    Left_Front_Wheel.move(speed);
+                    Left_Back_Top_Wheel.move(speed);
+                    Left_Back_Bottom_Wheel.move(speed);
+
                 } else {
                     if(currentAngle > angle + 1) {
                         // Turn left
+                        Right_Front_Wheel.move(speed);
+                        Right_Back_Top_Wheel.move(speed);
+                        Right_Back_Bottom_Wheel.move(speed);
+
+                        Left_Front_Wheel.move(-speed);
+                        Left_Back_Top_Wheel.move(-speed);
+                        Left_Back_Bottom_Wheel.move(-speed);
+
                     } else if(currentAngle < angle - 1) {
                         // Turn right
+                        Right_Front_Wheel.move(-speed);
+                        Right_Back_Top_Wheel.move(-speed);
+                        Right_Back_Bottom_Wheel.move(-speed);
+
+                        Left_Front_Wheel.move(speed);
+                        Left_Back_Top_Wheel.move(speed);
+                        Left_Back_Bottom_Wheel.move(speed);
+
                     } else {
                         // Stop
+                        Right_Front_Wheel.move(0);
+                        Right_Back_Top_Wheel.move(0);
+                        Right_Back_Bottom_Wheel.move(0);
+
+                        Left_Front_Wheel.move(0);
+                        Left_Back_Top_Wheel.move(0);
+                        Left_Back_Bottom_Wheel.move(0);
                     }
                 }
             }

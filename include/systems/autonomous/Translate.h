@@ -9,6 +9,7 @@
 #define __TRANSLATE_H__
 
 #include "main.h"
+#include <optional>
 
 /**
  * @brief Translates the robot to a specified x, y coordinate and angle in the robot's
@@ -23,6 +24,6 @@
  * @param subsystemTimeout The amount of time to activate the parallel subsystem for (in milliseconds).
  * 
 */
-void Translate(float x, float y, float angle=0, int speed=100, int timeout=5000, std::string subsystem="", int subsystemTimeout=0);
+void Translate(float x, float y, float angle, int speed, int timeout, std::string subsystem, int subsystemTimeout);
 
 #endif // __TRANSLATE_H__
