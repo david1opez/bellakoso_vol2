@@ -10,6 +10,6 @@
 
 extern pros::ADIEncoder Y_Axis_Encoder; // Y Axis Encoder
 
-extern pros::IMU inertialSensor; // Inertial Sensor
+extern pros::IMU Inertial_Sensor; // Inertial Sensor
 
 #endif // __SENSORS_H__

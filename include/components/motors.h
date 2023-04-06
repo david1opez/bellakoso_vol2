@@ -18,4 +18,16 @@ extern pros::Motor Left_Front_Wheel; // Left Front Wheel Motor
 extern pros::Motor Left_Back_Top_Wheel; // Left Back Top Wheel Motor
 extern pros::Motor Left_Back_Bottom_Wheel; // Left Back Bottom Wheel Motor
 
+// Intaker Motor
+extern pros::Motor Intaker; // Intaker Motor
+
+// Shooter Motor
+extern pros::Motor Shooter; // Shooter Motor
+
+// Flywheel Motor
+extern pros::Motor Flywheel; // Flywheel Motor
+
+// Roller Motor
+extern pros::Motor Roller; // Roller Motor
+
 #endif // __MOTORS_H__

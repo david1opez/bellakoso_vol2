@@ -3,6 +3,6 @@
 void RestartComponents() {
     pros::delay(1500);
     
-    inertialSensor.reset();
+    Inertial_Sensor.reset();
     Y_Axis_Encoder.reset();
 };

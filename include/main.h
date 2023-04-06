@@ -28,8 +28,6 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-#include <algorithm>
-#include "math.h"
 
 /**
  * Global Constants
@@ -61,12 +59,15 @@
  * Control Systems
  */
 #include "./systems/control/Drive.h"
+#include "./systems/control/HandleIntaker.h"
+#include "./systems/control/HandleFlywheel.h"
+#include "./systems/control/HandleRoller.h"
 #include "./systems/control/RestartComponents.h"
 
 /**
  * PID Systems
  */
-// #include "./systems/PID/FlywheelPID.h"
+#include "./systems/PID/TranslatePID.h"
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure

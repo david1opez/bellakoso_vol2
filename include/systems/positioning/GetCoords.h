@@ -24,7 +24,7 @@ void updateCoords(void* param);
  * 
 */
 
-float GetX();
+double GetX();
 
 /**
  * @brief Gets the robot's y coordinate
@@ -33,7 +33,7 @@ float GetX();
  * 
 */
 
-float GetY();
+double GetY();
 
 /**
  * @brief Gets the robot's angle
@@ -42,6 +42,6 @@ float GetY();
  * 
 */
 
-float GetAngle();
+double GetAngle();
 
 #endif // __GET_COORDS_H__

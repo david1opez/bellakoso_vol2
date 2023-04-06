@@ -9,7 +9,44 @@
 #define __TRANSLATE_H__
 
 #include "main.h"
-#include <optional>
+
+/**
+ * @brief Turns the robot left at a specified speed percentage
+ * 
+ * @param speed The speed percentage to turn the robot at (0-100)
+ * 
+*/
+void TurnLeft(int speed);
+
+/**
+ * @brief Turns the robot right at a specified speed percentage
+ * 
+ * @param speed The speed percentage to turn the robot at (0-100)
+ * 
+*/
+void TurnRight(int speed);
+
+/**
+ * @brief Moves the robot forwards at a specified speed percentage
+ * 
+ * @param speed The speed percentage to move the robot at (0-100)
+ * 
+*/
+void MoveForwards(int speed);
+
+/**
+ * @brief Moves the robot backwards at a specified speed percentage
+ * 
+ * @param speed The speed percentage to move the robot at (0-100)
+ * 
+*/
+void MoveBackwards(int speed);
+
+/**
+ * @brief Stops the robot
+ * 
+*/
+void Stop(int speed);
 
 /**
  * @brief Translates the robot to a specified x, y coordinate and angle in the robot's
@@ -24,6 +61,14 @@
  * @param subsystemTimeout The amount of time to activate the parallel subsystem for (in milliseconds).
  * 
 */
-void Translate(float x, float y, float angle, int speed, int timeout, std::string subsystem, int subsystemTimeout);
+void Translate(
+    double x,
+    double y,
+    std::optional<double> angle = std::nullopt,
+    std::optional<int> speed = std::nullopt,
+    std::optional<int> timeout = std::nullopt,
+    std::optional<std::string> subsystem = std::nullopt,
+    std::optional<int> subsystemTimeout = std::nullopt
+);
 
 #endif // __TRANSLATE_H__
