@@ -4,7 +4,7 @@ double startingAngleDiference = 0.0;
 double integralRaw = 0.0;
 double lastError = 0.0;
 
-double RotatePID(float targetAngle, float power=1) {
+double RotatePID(double targetAngle, double power=1) {
     double powerConstant = 5000;
 
     double angleDiference = targetAngle - Inertial_Sensor.get_rotation();

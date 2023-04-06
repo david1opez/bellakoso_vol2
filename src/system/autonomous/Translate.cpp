@@ -87,6 +87,7 @@ void Translate(double x, double y, std::optional<double> angle=std::nullopt, std
                 // Turn left
             } else if(currentTranslateAngle < targetAngle - 1) {
                 // Turn right
+                TurnRight(RotatePID(targetAngle, 1));
             } else {
                 if(distance > 0.5) {
                     // Move forward

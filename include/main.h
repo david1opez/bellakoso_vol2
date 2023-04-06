@@ -68,6 +68,7 @@
  * PID Systems
  */
 #include "./systems/PID/TranslatePID.h"
+#include "./systems/PID/RotatePID.h"
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
