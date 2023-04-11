@@ -64,10 +64,10 @@ void Stop(int speed);
 void Translate(
     double x,
     double y,
+    std::optional<std::string> subsystem = std::nullopt,
     std::optional<double> angle = std::nullopt,
     std::optional<int> speed = std::nullopt,
     std::optional<int> timeout = std::nullopt,
-    std::optional<std::string> subsystem = std::nullopt,
     std::optional<int> subsystemTimeout = std::nullopt
 );
 

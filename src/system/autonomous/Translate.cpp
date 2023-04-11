@@ -50,7 +50,7 @@ void Stop(int speed) {
     Left_Back_Bottom_Wheel.move(0);
 }
 
-void Translate(double x, double y, std::optional<double> angle=std::nullopt, std::optional<int> speed=std::nullopt, std::optional<int> timeout=std::nullopt, std::optional<std::string> subsystem=std::nullopt, std::optional<int> subsystemTimeout=std::nullopt) {
+void Translate(double x, double y,std::optional<std::string> subsystem, std::optional<double> angle, std::optional<int> speed, std::optional<int> timeout, std::optional<int> subsystemTimeout) {
     // Get the current position of the robot
     float currentTranslateX = GetX();
     float currentTranslateY = GetY();
@@ -106,6 +106,7 @@ void Translate(double x, double y, std::optional<double> angle=std::nullopt, std
             pros::delay(1);
         };
 
+
         ActivateSystem(subsystem.value_or(""), 0);
 
         updatePosition();
@@ -120,7 +121,8 @@ void Translate(double x, double y, std::optional<double> angle=std::nullopt, std
             } else {
                 if(distance > 0.5) {
                     // Move forward
-                } else {
+                } 
+                else {
                     if(currentTranslateAngle > angle.value_or(0) + 1) {
                         // Turn left
                     } else if(currentTranslateAngle < angle.value_or(0) - 1) {

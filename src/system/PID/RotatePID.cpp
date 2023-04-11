@@ -1,8 +1,8 @@
 #include "main.h"
 
 double startingAngleDiference = 0.0;
-double integralRaw = 0.0;
-double lastError = 0.0;
+double rotateIntegralRaw = 0.0;
+double lastRotateError = 0.0;
 
 double RotatePID(double targetAngle, double power=1) {
     double powerConstant = 5000;
@@ -22,26 +22,26 @@ double RotatePID(double targetAngle, double power=1) {
     double proportion = ROTATE_KP * error;
 
     if (fabs(error) < activeIntegralZone && error != 0) {
-        integralRaw = 0;
+        rotateIntegralRaw = 0;
     }
     else {
-        integralRaw += error;
+        rotateIntegralRaw += error;
     }
 
-    if(integralRaw > integralPowerLimit) {
-        integralRaw = integralPowerLimit;
+    if(rotateIntegralRaw > integralPowerLimit) {
+        rotateIntegralRaw = integralPowerLimit;
     }
-    else if (integralRaw < -integralPowerLimit) {
-        integralRaw = -integralPowerLimit;
+    else if (rotateIntegralRaw < -integralPowerLimit) {
+        rotateIntegralRaw = -integralPowerLimit;
     }
     else {
-        integralRaw = integralRaw;
+        rotateIntegralRaw = rotateIntegralRaw;
     }
 
-    double integral = ROTATE_KI * integralRaw;
+    double integral = ROTATE_KI * rotateIntegralRaw;
 
-    double derivative = ROTATE_KD * (error - lastError);
-    lastError = error;
+    double derivative = ROTATE_KD * (error - lastRotateError);
+    lastRotateError = error;
 
     derivative = error == 0 ? 0 : derivative ;
 

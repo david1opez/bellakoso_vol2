@@ -42,7 +42,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	Translate(0,0);
+	Translate(100,0);
 }
 
 /**
@@ -59,10 +59,17 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	while (true) {
+	/*while (true) {
 		Drive();
 		HandleIntaker();
 		HandleFlywheel();
 		HandleRoller();
+	}*/
+	std::cout << "check1";
+	while (true) {
+		std::cout << "check2";
+		std::cout << Y_Axis_Encoder.get_value() << std::endl;
 	}
+	std::cout << Y_Axis_Encoder.get_value() << std::endl;
+	autonomous();
 }
