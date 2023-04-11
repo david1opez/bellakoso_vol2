@@ -59,17 +59,12 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	/*while (true) {
+	while (true) {
 		Drive();
 		HandleIntaker();
 		HandleFlywheel();
 		HandleRoller();
-	}*/
-	std::cout << "check1";
-	while (true) {
-		std::cout << "check2";
-		std::cout << Y_Axis_Encoder.get_value() << std::endl;
+		HandleExpansion();
 	}
-	std::cout << Y_Axis_Encoder.get_value() << std::endl;
-	autonomous();
+	
 }

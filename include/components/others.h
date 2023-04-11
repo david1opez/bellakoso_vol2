@@ -9,5 +9,7 @@
 #include "main.h"
 
 extern pros::Controller Controller; // Controller
+extern pros::ADIDigitalOut PistonExpansion;
+
 
 #endif // __OTHERS_H__
