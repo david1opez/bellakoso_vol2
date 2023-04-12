@@ -42,7 +42,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	Translate(10,10);
+	Translate(10,0);
 }
 
 /**
@@ -59,7 +59,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	Translate(30, 30);
+	Translate(30,30);
 
 	while (true) {
 		Drive();
