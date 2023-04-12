@@ -21,8 +21,6 @@ void updateCoords(void* param) {
         // Update the current position
         currentY = previousX + deltaX;
         currentX = previousY + deltaY;
-
-        std::cout << "X: " << currentX << " Y: " << currentY << " Angle: " << angle << std::endl;
     }
 };
 

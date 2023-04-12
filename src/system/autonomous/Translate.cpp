@@ -73,9 +73,24 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
 
         // Update the distance between the current position and the target position
         distance = sqrt(pow(x - currentTranslateX, 2) + pow(y - currentTranslateY, 2));
-        
-        std::cout << "X: " << currentTranslateX << " Y: " << currentTranslateY << " Angle: " << currentTranslateAngle << std::endl;
+
+        while(std::isnan(currentTranslateX) || std::isnan(currentTranslateY)) {
+            std::cout << "Waiting for sensors to initialize..." << std::endl;
+            currentTranslateX = GetX();
+            currentTranslateY = GetY();
+            currentTranslateAngle = GetAngle();
+        }
+
+        std::cout << "Current X: " << currentTranslateX << std::endl;
+        std::cout << "Current Y: " << currentTranslateY << std::endl;
+        std::cout << "Current Angle: " << currentTranslateAngle << std::endl;
+        std::cout << "Target Angle: " << targetAngle << std::endl;
+        std::cout << "Distance: " << distance << std::endl;
+        std::cout << "==========================\n" << std::endl;
     };
+    
+    subsystem = subsystem.value_or("");
+    timeout = timeout.value_or(5000);
 
     if(subsystem != "") {
         for(int i = 0; i < subsystemTimeout; i += 20) {
@@ -87,11 +102,11 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
                 // Turn left
             } else if(currentTranslateAngle < targetAngle - 1) {
                 // Turn right
-                TurnRight(RotatePID(targetAngle, 1));
+                // TurnRight(RotatePID(targetAngle, 1));
             } else {
                 if(distance > 0.5) {
                     // Move forward
-                    MoveForwards(TranslatePID(x,y,1));
+                    // MoveForwards(TranslatePID(x,y,1));
                 } else {
                     if(currentTranslateAngle > angle.value_or(0) + 1) {
                         // Turn left
@@ -106,21 +121,22 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
             pros::delay(1);
         };
 
-
         ActivateSystem(subsystem.value_or(""), 0);
-
-        updatePosition();
-
+    }
+    else {
         bool arrived = false;
 
-        while (!arrived && timeout > 0) { 
-            if(currentTranslateAngle > targetAngle + 1) {
-                // Turn left
-            } else if(currentTranslateAngle < targetAngle - 1) {
-                // Turn right
-            } else {
+        while (!arrived && timeout > 0) {
+            updatePosition();
+     //     if(currentTranslateAngle > targetAngle + 1) {
+     //         // Turn left
+     //     } else if(currentTranslateAngle < targetAngle - 1) {
+     //         // Turn right
+     //     } else {
+            
                 if(distance > 0.5) {
                     // Move forward
+                    // MoveForwards(90);
                 } 
                 else {
                     if(currentTranslateAngle > angle.value_or(0) + 1) {
@@ -131,12 +147,9 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
                         // Stop
                     }
                 }
-            }
-
-            timeout.has_value() ? timeout.value() -= 1 : timeout = 4999;
+            // }
 
             pros::delay(1);
         }
-
     }
 };

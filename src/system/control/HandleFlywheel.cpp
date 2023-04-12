@@ -49,7 +49,7 @@ void HandleFlywheel() {
     }
 
     if(activeShooter80) {
-        Flywheel.move_voltage(0.82*12000);
+        Flywheel.move_voltage(0.86*12000);
     }
     else if(activeShooter100) {
         Flywheel.move_voltage(12000);

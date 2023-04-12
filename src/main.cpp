@@ -42,7 +42,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	Translate(100,0);
+	Translate(100,100);
 }
 
 /**
@@ -65,11 +65,19 @@ void opcontrol() {
 		HandleFlywheel();
 		HandleRoller();
 	}*/
-	std::cout << "check1";
+
+	// Translate(30, 30);
+
+	bool activePiston = false;
+	
 	while (true) {
-		std::cout << "check2";
-		std::cout << Y_Axis_Encoder.get_value() << std::endl;
+		Drive();
+		HandleIntaker();
+		HandleFlywheel();
+		HandleRoller();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A) == 1) {
+			Expansion_Piston.set_value(!activePiston);
+			activePiston = !activePiston;
+    	}
 	}
-	std::cout << Y_Axis_Encoder.get_value() << std::endl;
-	autonomous();
 }
