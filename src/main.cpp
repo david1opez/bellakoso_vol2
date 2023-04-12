@@ -42,7 +42,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	Translate(100,100);
+	Translate(10,10);
 }
 
 /**
@@ -59,25 +59,14 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	/*while (true) {
-		Drive();
-		HandleIntaker();
-		HandleFlywheel();
-		HandleRoller();
-	}*/
+	Translate(30, 30);
 
-	// Translate(30, 30);
-
-	bool activePiston = false;
-	
 	while (true) {
 		Drive();
 		HandleIntaker();
 		HandleFlywheel();
 		HandleRoller();
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A) == 1) {
-			Expansion_Piston.set_value(!activePiston);
-			activePiston = !activePiston;
-    	}
+		HandleExpansion();
 	}
+	
 }

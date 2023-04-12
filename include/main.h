@@ -63,6 +63,7 @@
 #include "./systems/control/HandleFlywheel.h"
 #include "./systems/control/HandleRoller.h"
 #include "./systems/control/RestartComponents.h"
+#include "./systems/control/HandleExpansion.h"
 
 /**
  * PID Systems

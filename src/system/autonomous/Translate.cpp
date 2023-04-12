@@ -69,7 +69,7 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
         currentTranslateAngle = GetAngle();
 
         // Update the angle between the current position and the target position
-        targetAngle = atan2(y - currentTranslateY, x - currentTranslateX) * 180 / M_PI;
+        targetAngle = atan2(x - currentTranslateX, y - currentTranslateY) * 180 / M_PI;
 
         // Update the distance between the current position and the target position
         distance = sqrt(pow(x - currentTranslateX, 2) + pow(y - currentTranslateY, 2));
@@ -83,10 +83,7 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
 
         std::cout << "Current X: " << currentTranslateX << std::endl;
         std::cout << "Current Y: " << currentTranslateY << std::endl;
-        std::cout << "Current Angle: " << currentTranslateAngle << std::endl;
-        std::cout << "Target Angle: " << targetAngle << std::endl;
         std::cout << "Distance: " << distance << std::endl;
-        std::cout << "==========================\n" << std::endl;
     };
     
     subsystem = subsystem.value_or("");
@@ -128,17 +125,26 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
 
         while (!arrived && timeout > 0) {
             updatePosition();
-     //     if(currentTranslateAngle > targetAngle + 1) {
-     //         // Turn left
-     //     } else if(currentTranslateAngle < targetAngle - 1) {
-     //         // Turn right
-     //     } else {
-            
+
+            double errorMargin = 1;
+            double angleDifference = targetAngle - currentTranslateAngle;
+
+            std::cout << "Angle Difference: " << angleDifference << std::endl;
+
+            if(abs(angleDifference) > errorMargin) {
+                if(angleDifference > 0) {
+                    TurnRight(30);
+                } else if (angleDifference < 0) {
+                    TurnLeft(30);
+                }
+            }
+            else {
                 if(distance > 0.5) {
-                    // Move forward
-                    // MoveForwards(90);
+                    MoveForwards(30);
                 } 
-                else {
+                else if (distance <= 0.5) {
+                    arrived = true;
+
                     if(currentTranslateAngle > angle.value_or(0) + 1) {
                         // Turn left
                     } else if(currentTranslateAngle < angle.value_or(0) - 1) {
@@ -147,7 +153,7 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
                         // Stop
                     }
                 }
-            // }
+            }
 
             pros::delay(1);
         }

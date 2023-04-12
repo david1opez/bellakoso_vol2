@@ -10,6 +10,6 @@
 
 extern pros::Controller Controller; // Controller
 
-extern pros::ADIDigitalOut Expansion_Piston;
+extern pros::ADIDigitalOut Expansion_Piston; // Expansion Piston
 
 #endif // __OTHERS_H__
