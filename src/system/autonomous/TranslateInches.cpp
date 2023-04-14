@@ -6,7 +6,7 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
     double currentDistance = 0.0;
     double currentAngle = 0.0;
 
-    double angleMarginError = 2.5;
+    double angleMarginError = 3;
     double distanceMarginError = 1;
 
     Inertial_Sensor.set_rotation(0);
@@ -18,6 +18,10 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
     double distanceDiference = inches - currentDistance - previousDistance;
 
     bool arrived = false;
+
+    if(reverse) {
+        currentDistance *= -1;
+    }
 
     if(subsystem != "") {
         ActivateSystem(subsystem);
@@ -43,6 +47,10 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
         } else {
             int voltage = 12000 * speed;
 
+            if(reverse) {
+                voltage *= -1;
+            }
+
             double percentTravelled = currentDistance / inches;
 
             if(percentTravelled < 0.3) {
@@ -59,6 +67,10 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
             }
 
             currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
+
+            if(reverse) {
+                currentDistance *= -1;
+            }
 
             if(abs(distanceDiference) > distanceMarginError) {
                 distanceDiference = inches - currentDistance;
