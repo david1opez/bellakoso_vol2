@@ -47,7 +47,7 @@
 #include "./systems/autonomous/routines/AutonomousRoutine.h"
 #include "./systems/autonomous/routines/ProgrammingSkillsRoutine.h"
 #include "./systems/autonomous/ActivateSystem.h"
-#include "./systems/autonomous/Translate.h"
+#include "./systems/autonomous/TranslateInches.h"
 
 /**
  * Positioning Systems

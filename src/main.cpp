@@ -41,9 +41,7 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {
-	Translate(10,0);
-}
+void autonomous() {}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -59,7 +57,10 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	Translate(30,30);
+	TranslateInches(84, false, -90, 1);
+	TranslateInches(100, false, 90, 1);
+	// TranslateInches(140, false, 90, 1);
+	// TranslateInches(140, false, 180, 1);
 
 	while (true) {
 		Drive();
