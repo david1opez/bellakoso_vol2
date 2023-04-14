@@ -1,6 +1,56 @@
 #include "main.h"
 
-void Translate(double x, double y, std::optional<double> angle, std::optional<std::string> subsystem, std::optional<int> speed, std::optional<int> timeout, std::optional<int> subsystemTimeout) {    
+void TurnLeft(int speed) {
+    Right_Front_Wheel.move(speed);
+    Right_Back_Top_Wheel.move(speed);
+    Right_Back_Bottom_Wheel.move(speed);
+
+    Left_Front_Wheel.move(-speed);
+    Left_Back_Top_Wheel.move(-speed);
+    Left_Back_Bottom_Wheel.move(-speed);
+}
+
+void TurnRight(int speed) {
+    Right_Front_Wheel.move(-speed);
+    Right_Back_Top_Wheel.move(-speed);
+    Right_Back_Bottom_Wheel.move(-speed);
+
+    Left_Front_Wheel.move(speed);
+    Left_Back_Top_Wheel.move(speed);
+    Left_Back_Bottom_Wheel.move(speed);
+}
+
+void MoveForwards(int speed) {
+    Right_Front_Wheel.move(speed);
+    Right_Back_Top_Wheel.move(speed);
+    Right_Back_Bottom_Wheel.move(speed);
+
+    Left_Front_Wheel.move(speed);
+    Left_Back_Top_Wheel.move(speed);
+    Left_Back_Bottom_Wheel.move(speed);
+}
+
+void MoveBackwards(int speed) {
+    Right_Front_Wheel.move(-speed);
+    Right_Back_Top_Wheel.move(-speed);
+    Right_Back_Bottom_Wheel.move(-speed);
+
+    Left_Front_Wheel.move(-speed);
+    Left_Back_Top_Wheel.move(-speed);
+    Left_Back_Bottom_Wheel.move(-speed);
+}
+
+void Stop() {
+    Right_Front_Wheel.move(0);
+    Right_Back_Top_Wheel.move(0);
+    Right_Back_Bottom_Wheel.move(0);
+
+    Left_Front_Wheel.move(0);
+    Left_Back_Top_Wheel.move(0);
+    Left_Back_Bottom_Wheel.move(0);
+}
+
+void Translate(double x, double y,std::optional<std::string> subsystem, std::optional<double> angle, std::optional<int> speed, std::optional<int> timeout, std::optional<int> subsystemTimeout) {
     // Get the current position of the robot
     float currentTranslateX = GetX();
     float currentTranslateY = GetY();
@@ -12,7 +62,7 @@ void Translate(double x, double y, std::optional<double> angle, std::optional<st
     float targetAngle = (atan2(x - currentTranslateX, y - currentTranslateY) * 180 / M_PI) - initialAngle;
 
     // Calculate the distance between the current position and the target position
-    float distance = sqrt(pow(x - currentTranslateY, 2) + pow(y - currentTranslateY, 2));
+    float distance = sqrt(pow(x - currentTranslateX, 2) + pow(y - currentTranslateY, 2));
 
     auto updatePosition = [&]() {
         // Update the current position of the robot
