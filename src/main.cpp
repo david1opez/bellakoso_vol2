@@ -57,10 +57,8 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	TranslateInches(84, false, -90, 1);
-	TranslateInches(100, false, 90, 1);
-	// TranslateInches(140, false, 90, 1);
-	// TranslateInches(140, false, 180, 1);
+	TranslateInches(84, false, -90, 1, 5000);
+	TranslateInches(100, false, 90, 1, 5000);
 
 	while (true) {
 		Drive();

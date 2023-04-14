@@ -2,7 +2,7 @@
 
 double previousDistance = 0.0;
 
-void TranslateInches(double inches, bool reverse, double angle, double speed) {
+void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout) {
     double currentDistance = 0.0;
     double currentAngle = 0.0;
 
@@ -19,7 +19,7 @@ void TranslateInches(double inches, bool reverse, double angle, double speed) {
 
     bool arrived = false;
 
-    while(!arrived) {
+    while(!arrived && timeout > 0) {
         currentAngle = Inertial_Sensor.get_rotation();
         angleDiference = angle - currentAngle;
 
@@ -67,6 +67,9 @@ void TranslateInches(double inches, bool reverse, double angle, double speed) {
                 Stop();
             }
         }
+
+        timeout--;
+        pros::delay(1);
     }
 
     previousDistance = currentDistance;
