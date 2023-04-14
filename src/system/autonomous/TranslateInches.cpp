@@ -2,7 +2,7 @@
 
 double previousDistance = 0.0;
 
-void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout) {
+void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout, std::string subsystem, int subsystemTimeout) {
     double currentDistance = 0.0;
     double currentAngle = 0.0;
 
@@ -19,9 +19,17 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
 
     bool arrived = false;
 
+    if(subsystem != "") {
+        ActivateSystem(subsystem);
+    }
+
     while(!arrived && timeout > 0) {
         currentAngle = Inertial_Sensor.get_rotation();
         angleDiference = angle - currentAngle;
+
+        if(subsystemTimeout <= 0) {
+            ActivateSystem(subsystem, 1);
+        }
 
         if(abs(angleDiference) >= angleMarginError) {
             int voltage = 3000;
@@ -69,8 +77,13 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
         }
 
         timeout--;
+        subsystemTimeout--;
         pros::delay(1);
     }
+
+    while(subsystemTimeout > 0) {}
+
+    ActivateSystem(subsystem, 1);
 
     previousDistance = currentDistance;
 }

@@ -3,6 +3,6 @@
 #ifndef __TRANSLATE_INCHES_H__
 #define __TRANSLATE_INCHES_H__
 
-void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout);
+void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout, std::string subsystem, int subsystemTimeout);
 
 #endif // __TRANSLATE_INCHES_H__

@@ -1,6 +1,6 @@
 #include "main.h"
 
-void ActivateSystem(std::string system, std::optional<int> miliseconds = std::nullopt) {
+void ActivateSystem(std::string system, std::optional<int> miliseconds) {
     std::transform(system.begin(), system.end(), system.begin(), ::tolower);
 
     if(system == "intaker") {
