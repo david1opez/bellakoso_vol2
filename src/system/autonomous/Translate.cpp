@@ -1,63 +1,15 @@
 #include "main.h"
 
-void TurnLeft(int speed) {
-    Right_Front_Wheel.move(speed);
-    Right_Back_Top_Wheel.move(speed);
-    Right_Back_Bottom_Wheel.move(speed);
-
-    Left_Front_Wheel.move(-speed);
-    Left_Back_Top_Wheel.move(-speed);
-    Left_Back_Bottom_Wheel.move(-speed);
-}
-
-void TurnRight(int speed) {
-    Right_Front_Wheel.move(-speed);
-    Right_Back_Top_Wheel.move(-speed);
-    Right_Back_Bottom_Wheel.move(-speed);
-
-    Left_Front_Wheel.move(speed);
-    Left_Back_Top_Wheel.move(speed);
-    Left_Back_Bottom_Wheel.move(speed);
-}
-
-void MoveForwards(int speed) {
-    Right_Front_Wheel.move(speed);
-    Right_Back_Top_Wheel.move(speed);
-    Right_Back_Bottom_Wheel.move(speed);
-
-    Left_Front_Wheel.move(speed);
-    Left_Back_Top_Wheel.move(speed);
-    Left_Back_Bottom_Wheel.move(speed);
-}
-
-void MoveBackwards(int speed) {
-    Right_Front_Wheel.move(-speed);
-    Right_Back_Top_Wheel.move(-speed);
-    Right_Back_Bottom_Wheel.move(-speed);
-
-    Left_Front_Wheel.move(-speed);
-    Left_Back_Top_Wheel.move(-speed);
-    Left_Back_Bottom_Wheel.move(-speed);
-}
-
-void Stop(int speed) {
-    Right_Front_Wheel.move(0);
-    Right_Back_Top_Wheel.move(0);
-    Right_Back_Bottom_Wheel.move(0);
-
-    Left_Front_Wheel.move(0);
-    Left_Back_Top_Wheel.move(0);
-    Left_Back_Bottom_Wheel.move(0);
-}
-
-void Translate(double x, double y,std::optional<std::string> subsystem, std::optional<double> angle, std::optional<int> speed, std::optional<int> timeout, std::optional<int> subsystemTimeout) {
+void Translate(double x, double y, std::optional<double> angle, std::optional<std::string> subsystem, std::optional<int> speed, std::optional<int> timeout, std::optional<int> subsystemTimeout) {    
     // Get the current position of the robot
     float currentTranslateX = GetX();
     float currentTranslateY = GetY();
     float currentTranslateAngle = GetAngle();
 
+    float initialAngle = currentTranslateAngle;
+
     // Calculate the angle between the current position and the target position
-    float targetAngle = atan2(y - currentTranslateY, x - currentTranslateX) * 180 / M_PI;
+    float targetAngle = (atan2(x - currentTranslateX, y - currentTranslateY) * 180 / M_PI) - initialAngle;
 
     // Calculate the distance between the current position and the target position
     float distance = sqrt(pow(x - currentTranslateY, 2) + pow(y - currentTranslateY, 2));
@@ -69,93 +21,88 @@ void Translate(double x, double y,std::optional<std::string> subsystem, std::opt
         currentTranslateAngle = GetAngle();
 
         // Update the angle between the current position and the target position
-        targetAngle = atan2(x - currentTranslateX, y - currentTranslateY) * 180 / M_PI;
+        targetAngle = (atan2(x - currentTranslateX, y - currentTranslateY) * 180 / M_PI) - initialAngle;
 
         // Update the distance between the current position and the target position
-        distance = sqrt(pow(x - currentTranslateX, 2) + pow(y - currentTranslateY, 2));
+        distance = sqrt(pow(y - currentTranslateY, 2) + pow(x - currentTranslateX, 2));
 
         while(std::isnan(currentTranslateX) || std::isnan(currentTranslateY)) {
-            std::cout << "Waiting for sensors to initialize..." << std::endl;
             currentTranslateX = GetX();
             currentTranslateY = GetY();
             currentTranslateAngle = GetAngle();
+            std::cout << "Waiting for sensors to initialize..." << std::endl;
         }
-
-        std::cout << "Current X: " << currentTranslateX << std::endl;
-        std::cout << "Current Y: " << currentTranslateY << std::endl;
-        std::cout << "Distance: " << distance << std::endl;
     };
-    
-    subsystem = subsystem.value_or("");
-    timeout = timeout.value_or(5000);
 
-    if(subsystem != "") {
-        for(int i = 0; i < subsystemTimeout; i += 20) {
-            // ActivateSystem(subsystem);
+    bool arrived = false;
+    bool translateAngleArrived = false;
 
-            updatePosition();
+    double turnErrorMargin = 1;
+    double moveErrorMargin = 8;
 
-            if(currentTranslateAngle > targetAngle + 1) {
-                // Turn left
-            } else if(currentTranslateAngle < targetAngle - 1) {
-                // Turn right
-                // TurnRight(RotatePID(targetAngle, 1));
-            } else {
-                if(distance > 0.5) {
-                    // Move forward
-                    // MoveForwards(TranslatePID(x,y,1));
-                } else {
-                    if(currentTranslateAngle > angle.value_or(0) + 1) {
-                        // Turn left
-                    } else if(currentTranslateAngle < angle.value_or(0) - 1) {
-                        // Turn right
-                    } else {
-                        // Stop
-                    }
-                }
+    timeout = timeout.value_or(6000);
+
+    while (!arrived && timeout.value() > 0) {
+        updatePosition();
+
+        double translateAngleDifference = targetAngle - currentTranslateAngle;
+
+        if(abs(translateAngleDifference) > turnErrorMargin) {
+            if(translateAngleDifference > turnErrorMargin) {
+                TurnRight(5000);
+            }
+            else if(translateAngleDifference < -turnErrorMargin) {
+                TurnLeft(5000);
             }
 
-            pros::delay(1);
-        };
-
-        ActivateSystem(subsystem.value_or(""), 0);
-    }
-    else {
-        bool arrived = false;
-
-        while (!arrived && timeout > 0) {
-            updatePosition();
-
-            double errorMargin = 1;
-            double angleDifference = targetAngle - currentTranslateAngle;
-
-            std::cout << "Angle Difference: " << angleDifference << std::endl;
-
-            if(abs(angleDifference) > errorMargin) {
-                if(angleDifference > 0) {
-                    TurnRight(30);
-                } else if (angleDifference < 0) {
-                    TurnLeft(30);
-                }
+            if(translateAngleArrived) {
+                translateAngleArrived = false;
+                turnErrorMargin -= 1;
             }
-            else {
-                if(distance > 0.5) {
-                    MoveForwards(30);
-                } 
-                else if (distance <= 0.5) {
-                    arrived = true;
-
-                    if(currentTranslateAngle > angle.value_or(0) + 1) {
-                        // Turn left
-                    } else if(currentTranslateAngle < angle.value_or(0) - 1) {
-                        // Turn right
-                    } else {
-                        // Stop
-                    }
-                }
-            }
-
-            pros::delay(1);
         }
+        else {
+            translateAngleArrived = true;
+
+            if(turnErrorMargin < 10) {
+                turnErrorMargin += 0.1;
+            }
+
+            if(distance <= moveErrorMargin) {
+
+                if(angle.has_value()) {
+                    double angleDifference = angle.value() - Inertial_Sensor.get_rotation();
+                    bool angleArrived = false;
+
+                    turnErrorMargin = 1;
+                    
+                    while(!angleArrived && timeout.value() > 0) {
+                        angleDifference = angle.value() - Inertial_Sensor.get_rotation();
+
+                        if(abs(angleDifference) > turnErrorMargin) {
+                            if(angleDifference > turnErrorMargin) {
+                                TurnRight(5000);
+                            }
+                            else if(angleDifference < -turnErrorMargin) {
+                                TurnLeft(5000);
+                            } else {
+                                angleArrived = true;
+                            }
+                        }
+
+                        timeout.value() -= 1;
+                        pros::delay(1);
+                    }
+                }
+
+                arrived = true;
+                Stop();
+            } 
+            else {
+                MoveForwards(5000);
+            }
+        }
+        
+        timeout.value() -= 1;
+        pros::delay(1);
     }
 };

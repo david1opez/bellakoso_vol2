@@ -59,8 +59,8 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	Translate(30, 30);
-
+	Translate(10, 62, -90);
+	
 	while (true) {
 		Drive();
 		HandleIntaker();
@@ -68,5 +68,4 @@ void opcontrol() {
 		HandleRoller();
 		HandleExpansion();
 	}
-	
 }

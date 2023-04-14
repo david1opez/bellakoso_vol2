@@ -16,8 +16,6 @@ double RotatePID(double targetAngle, double power=1) {
     double activeIntegralZone = startingAngleDiference*0.45;
     double integralPowerLimit = 50 / ROTATE_KI;
 
-    Inertial_Sensor.tare_rotation();
-
     double error = angleDiference;
     double proportion = ROTATE_KP * error;
 
@@ -56,6 +54,8 @@ double RotatePID(double targetAngle, double power=1) {
     else {
         finalPower = finalPower;
     }
+
+    finalPower = 12000 * (finalPower / 100);
 
     return finalPower;
 }

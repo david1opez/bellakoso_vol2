@@ -41,7 +41,6 @@
 #include "./components/sensors.h"
 #include "./components/others.h"
 
-
 /**
  * Autonomous Systems
  */
