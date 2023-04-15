@@ -1,7 +1,5 @@
 #include "main.h"
 
-double previousDistance = 0.0;
-
 void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout, std::string subsystem, int subsystemTimeout) {
     double currentDistance = 0.0;
     double currentAngle = 0.0;
@@ -9,12 +7,12 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
     double angleMarginError = 3;
     double distanceMarginError = 1;
 
+    double previousDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0;
+
     currentAngle = Inertial_Sensor.get_rotation();
-    currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0;
-    currentDistance = reverse ? -currentDistance : currentDistance;
 
     double angleDiference = angle - currentAngle;
-    double distanceDiference = inches - currentDistance - previousDistance;
+    double distanceDiference = inches;
 
     bool arrived = false;
 
@@ -75,5 +73,4 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
 
     ActivateSystem(subsystem, 0, false);
 
-    previousDistance = currentDistance;
 }
