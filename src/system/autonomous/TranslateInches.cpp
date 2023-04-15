@@ -9,82 +9,53 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
     double angleMarginError = 3;
     double distanceMarginError = 1;
 
-    Inertial_Sensor.set_rotation(0);
-
     currentAngle = Inertial_Sensor.get_rotation();
     currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0;
+    currentDistance = reverse ? -currentDistance : currentDistance;
 
     double angleDiference = angle - currentAngle;
     double distanceDiference = inches - currentDistance - previousDistance;
 
     bool arrived = false;
 
-    if(reverse) {
-        currentDistance *= -1;
-    }
-
     if(subsystem != "") {
-        ActivateSystem(subsystem);
+        ActivateSystem(subsystem, 0, true);
     }
-
     while(!arrived && timeout > 0) {
         currentAngle = Inertial_Sensor.get_rotation();
         angleDiference = angle - currentAngle;
 
         if(subsystemTimeout <= 0) {
-            ActivateSystem(subsystem, 1);
+            ActivateSystem(subsystem, 0, false);
         }
 
         if(abs(angleDiference) >= angleMarginError) {
-            int voltage = 3000;
-
             if(angleDiference > angleMarginError) {
-                TurnRight(voltage);
+                Turn(1);
             }
             else if(angleDiference < -angleMarginError) {
-                TurnLeft(voltage);
+                Turn(-1);
             }
         } else {
-            int voltage = 12000 * speed;
-
-            if(reverse) {
-                voltage *= -1;
-            }
-
-            double percentTravelled = currentDistance / inches;
-
-            if(percentTravelled < 0.3) {
-                voltage *= 0.50;
-            }
-            else if(percentTravelled < 0.6) {
-                voltage *= 0.45;
-            }
-            else if(percentTravelled < 0.9) {
-                voltage *= 0.35;
-            }
-            else {
-                voltage *= 0.30;
-            }
+            int power = reverse ? -speed : speed;
 
             currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
-
-            if(reverse) {
-                currentDistance *= -1;
-            }
+            currentDistance = reverse ? -currentDistance : currentDistance;
 
             if(abs(distanceDiference) > distanceMarginError) {
                 distanceDiference = inches - currentDistance;
 
                 if(distanceDiference > distanceMarginError) {
-                    MoveForwards(voltage);
+                    Move(power);
                 }
                 else if(distanceDiference < -distanceMarginError) {                    
-                    MoveBackwards(voltage);
+                    Move(-power);
                 }
             }
             else {
                 arrived = true;
                 Stop();
+                ActivateSystem(subsystem, 0, false);
             }
         }
 
@@ -93,9 +64,16 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
         pros::delay(1);
     }
 
-    while(subsystemTimeout > 0) {}
+    Stop();
+    ActivateSystem(subsystem, 0, false);
 
-    ActivateSystem(subsystem, 1);
+    while(subsystemTimeout > 0) {
+        ActivateSystem(subsystem, 0, true);
+        subsystemTimeout--;
+        pros::delay(1);
+    }
+
+    ActivateSystem(subsystem, 0, false);
 
     previousDistance = currentDistance;
 }

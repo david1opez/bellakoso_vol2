@@ -18,40 +18,22 @@
 void Drive();
 
 /**
- * @brief Turns the robot left at a given voltage
+ * @brief Turns the robot left or right
  * 
- * @param voltage The voltage to turn the robot at
+ * @param power The voltage percent to turn the robot at. If set to negative, the robot will turn left. If set to positive, the robot will turn right
  * 
 */
 
-void TurnLeft(int voltage);
+void Turn(int power);
 
 /**
- * @brief Turns the robot right at a given voltage
+ * @brief Moves the robot forwards or backwards
  * 
- * @param voltage The voltage to turn the robot at
- * 
-*/
-
-void TurnRight(int voltage);
-
-/**
- * @brief Moves the robot forwards at a given voltage
- * 
- * @param voltage The voltage to move the robot at
+ * @param power The voltage percent to move the robot at. If set to negative, the robot will move backwards. If set to positive, the robot will move forwards
  * 
 */
 
-void MoveForwards(int voltage);
-
-/**
- * @brief Moves the robot backwards at a given voltage
- * 
- * @param voltage The voltage to move the robot at
- * 
-*/
-
-void MoveBackwards(int voltage);
+void Move(int power);
 
 /**
  * @brief Stops the robot

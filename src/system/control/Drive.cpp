@@ -13,7 +13,9 @@ void Drive() {
     Left_Back_Bottom_Wheel.move(power + turn);
 };
 
-void TurnLeft(int voltage) {
+void Turn(int power) {
+    int voltage = power < 0 ? 3000 : -3000;
+
     Right_Front_Wheel.move_voltage(voltage);
     Right_Back_Top_Wheel.move_voltage(voltage);
     Right_Back_Bottom_Wheel.move_voltage(voltage);
@@ -23,17 +25,9 @@ void TurnLeft(int voltage) {
     Left_Back_Bottom_Wheel.move_voltage(-voltage);
 }
 
-void TurnRight(int voltage) {
-    Right_Front_Wheel.move_voltage(-voltage);
-    Right_Back_Top_Wheel.move_voltage(-voltage);
-    Right_Back_Bottom_Wheel.move_voltage(-voltage);
+void Move(int power) {
+    int voltage = power < 0 ? -7000 : 7000;
 
-    Left_Front_Wheel.move_voltage(voltage);
-    Left_Back_Top_Wheel.move_voltage(voltage);
-    Left_Back_Bottom_Wheel.move_voltage(voltage);
-}
-
-void MoveForwards(int voltage) {
     Right_Front_Wheel.move_voltage(voltage);
     Right_Back_Top_Wheel.move_voltage(voltage);
     Right_Back_Bottom_Wheel.move_voltage(voltage);
@@ -41,16 +35,6 @@ void MoveForwards(int voltage) {
     Left_Front_Wheel.move_voltage(voltage);
     Left_Back_Top_Wheel.move_voltage(voltage);
     Left_Back_Bottom_Wheel.move_voltage(voltage);
-}
-
-void MoveBackwards(int voltage) {
-    Right_Front_Wheel.move_voltage(-voltage);
-    Right_Back_Top_Wheel.move_voltage(-voltage);
-    Right_Back_Bottom_Wheel.move_voltage(-voltage);
-
-    Left_Front_Wheel.move_voltage(-voltage);
-    Left_Back_Top_Wheel.move_voltage(-voltage);
-    Left_Back_Bottom_Wheel.move_voltage(-voltage);
 }
 
 void Stop() {

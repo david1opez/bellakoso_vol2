@@ -57,9 +57,8 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	TranslateInches(50, false, -90, 1, 500000, "intaker", 1000000);
-	TranslateInches(50, true, 90, 1, 500000, "intaker", 1000000);
-
+	AutonomousRoutine();
+	
 	while (true) {
 		Drive();
 		HandleIntaker();
