@@ -32,14 +32,29 @@ void ActivateSystem(std::string system, std::optional<int> miliseconds, std::opt
         char lastChar = system.back();
         int num = (int) lastChar;
 
-        Flywheel.move_voltage(12000);
-        pros::delay(2000);
-
-        for(int i = 1; i < num; i++) {
-            Shoot();
+        if(lastChar == 'l') {
+            if(activate.has_value()) {
+                if(activate.value() == true) {
+                    Flywheel.move_voltage(12000);
+                }
+                else if (activate.value() == false) {
+                    Flywheel.move(0);
+                }
+            }
         }
+        else {
+            Flywheel.move_voltage(11500);
 
-        Flywheel.move(0);
+            if(activate.value() == true) {
+                pros::delay(2000);
+            }
+
+            for(int i = 1; i < num; i++) {
+                Shoot();
+            }
+
+            Flywheel.move(0);
+        }
     }
 
     else if(system.find("roller") != std::string::npos) {

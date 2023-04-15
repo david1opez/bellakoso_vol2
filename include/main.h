@@ -53,6 +53,7 @@
  * Positioning Systems
 */
 #include "./systems/positioning/GetCoords.h"
+#include "./systems/positioning/BackupSystems.h"
 
 /**
  * Control Systems
@@ -63,6 +64,7 @@
 #include "./systems/control/HandleRoller.h"
 #include "./systems/control/RestartComponents.h"
 #include "./systems/control/HandleExpansion.h"
+#include "./systems/control/EndgameCountdown.h"
 
 /**
  * PID Systems

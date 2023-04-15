@@ -6,9 +6,21 @@ void AutonomousRoutine() {
     TranslateInches(3, false, 0, 1, 100, "", 0);
 
     // Pick first disc
-    TranslateInches(11, false, -40, 1, 3000, "intaker", 1500);
+    TranslateInches(8, false, -40.2, 1, 3000, "intaker", 1500);
+
+    // Move backwards to turn
+    TranslateInches(3, true, -40, 1, 1000, "intaker", 1000);
+
+    // Charge Flywheel
+    ActivateSystem("flywheel", 0, true);
 
     // Move to first shooting position
-    TranslateInches(1, true, -40, 1, 1000, "intaker", 1000);
-    TranslateInches(1, false, 45, 1, 2000, "intaker", 0);
+    TranslateInches(30, false, 35, 1, 7000, "intaker", 2000);
+    TranslateInches(0, false, -47, 1, 2000, "", 0);
+
+    // Launch 3 discs without charging the flywheel
+    ActivateSystem("flywheel 3", 97, false);
+
+    // T
+    ActivateSystem("flywheel", 0, false);
 }

@@ -1,10 +1,12 @@
 #include "main.h"
 
+bool useBackupSystem = false;
+
 void TranslateInches(double inches, bool reverse, double angle, double speed, int timeout, std::string subsystem, int subsystemTimeout) {
     double currentDistance = 0.0;
     double currentAngle = 0.0;
 
-    double angleMarginError = 3;
+    double angleMarginError = 3.5;
     double distanceMarginError = 1;
 
     double previousDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0;
@@ -20,7 +22,13 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
         ActivateSystem(subsystem, 0, true);
     }
     while(!arrived && timeout > 0) {
-        currentAngle = Inertial_Sensor.get_rotation();
+        if(std::isinf(Inertial_Sensor.get_rotation()) || std::isnan(Inertial_Sensor.get_rotation())) {
+            currentAngle = GetBackupAngle();
+            Inertial_Sensor.set_rotation(currentAngle);
+        } else {
+            currentAngle = Inertial_Sensor.get_rotation();
+        }
+
         angleDiference = angle - currentAngle;
 
         if(subsystemTimeout <= 0) {
@@ -37,7 +45,18 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
         } else {
             int power = reverse ? -speed : speed;
 
+            if(std::isinf(Y_Axis_Encoder.get_value()) || std::isnan(Y_Axis_Encoder.get_value())) {
+                useBackupSystem = true;
+            }
+
+            if(useBackupSystem) {
+                currentDistance = GetBackupDistance() -previousDistance;
+            } else {
+                currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
+            }
+
             currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
+            
             currentDistance = reverse ? -currentDistance : currentDistance;
 
             if(abs(distanceDiference) > distanceMarginError) {
@@ -52,7 +71,7 @@ void TranslateInches(double inches, bool reverse, double angle, double speed, in
             }
             else {
                 arrived = true;
-                Stop();
+                // Stop();
                 ActivateSystem(subsystem, 0, false);
             }
         }

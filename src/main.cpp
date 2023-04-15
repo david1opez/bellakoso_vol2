@@ -57,6 +57,8 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	int countdown = 75000;
+
 	AutonomousRoutine();
 	
 	while (true) {
@@ -65,5 +67,7 @@ void opcontrol() {
 		HandleFlywheel();
 		HandleRoller();
 		HandleExpansion();
+
+		countdown = EndgameCountdown(countdown);
 	}
 }
