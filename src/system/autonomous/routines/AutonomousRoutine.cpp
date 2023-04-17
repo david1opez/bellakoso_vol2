@@ -12,15 +12,15 @@ void AutonomousRoutine() {
     TranslateInches(3, true, -40, 1, 1000, "intaker", 1000);
 
     // Charge Flywheel
-    ActivateSystem("flywheel", 0, true);
+    ActivateSystem("flywheel", 12000, true);
 
     // Move to first shooting position
     TranslateInches(30, false, 35, 1, 7000, "intaker", 2000);
     TranslateInches(0, false, -47, 1, 2000, "", 0);
 
     // Launch 3 discs without charging the flywheel
-    ActivateSystem("flywheel 3", 97, false);
+    ActivateSystem("flywheel 3", 11500, false);
 
     // T
-    ActivateSystem("flywheel", 0, false);
+    ActivateSystem("flywheel", 11500, false);
 }

@@ -29,13 +29,20 @@ void ActivateSystem(std::string system, std::optional<int> miliseconds, std::opt
     }
 
     else if(system.find("flywheel") != std::string::npos) {
+        //For the flywheel "miliseconds" is the voltage
+
         char lastChar = system.back();
         int num = (int) lastChar;
+
+        if (!miliseconds.has_value()) {
+            miliseconds.value() = 12000;
+        }
+
 
         if(lastChar == 'l') {
             if(activate.has_value()) {
                 if(activate.value() == true) {
-                    Flywheel.move_voltage(12000);
+                    Flywheel.move_voltage(miliseconds.value());
                 }
                 else if (activate.value() == false) {
                     Flywheel.move(0);
@@ -43,7 +50,7 @@ void ActivateSystem(std::string system, std::optional<int> miliseconds, std::opt
             }
         }
         else {
-            Flywheel.move_voltage(11500);
+            Flywheel.move_voltage(miliseconds.value());
 
             if(activate.value() == true) {
                 pros::delay(2000);
