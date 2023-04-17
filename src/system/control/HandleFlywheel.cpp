@@ -1,61 +1,54 @@
 #include "main.h"
 
-void FlywheelMacro() {
-    Flywheel.move_voltage(12000);
+bool activeShooterHigh = false;
+bool activeShooterLow = false;
+bool activeShooterMedium = false;
 
-    for (int i = 0; i < 1700; i++) {
-        Drive();
-        pros::delay(1);
-    }
-
-    Shooter.move_voltage(12000);
-
-    for (int i = 0; i < 1000; i++) {
-        Drive();
-        pros::delay(1);
-    }
-
-    Shooter.move_voltage(0);
-
-    for (int i = 0; i < 500; i++) {
-        Drive();
-        pros::delay(1);
-    }
-
-    Shooter.move_voltage(12000);
-
-    for (int i = 0; i < 500; i++) {
-        Drive();
-        pros::delay(1);
-    }
-
-    Shooter.move_voltage(0);
-};
-
-bool activeShooter80 = false;
-bool activeShooter100 = false;
 
 void HandleFlywheel() {
     if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1) == 1) {
-        activeShooter80 = !activeShooter80;
-        activeShooter100 = false;
+        if(activeShooterHigh == false) {
+            Flywheel.move_voltage(0.86*12000);
+            activeShooterHigh = true;
+            activeShooterMedium = false;
+            activeShooterLow = false;
+        }
+        else {
+            Flywheel.move_voltage(0);
+            activeShooterHigh = false;
+        }
     }
     else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) == 1) {
-        activeShooter100 = !activeShooter100;
-        activeShooter80 = false;
+
+        if(activeShooterMedium == false) {
+            Flywheel.move_voltage(0.80*12000);
+            activeShooterMedium = true;
+            activeShooterHigh = false;
+            activeShooterLow = false;
+        }
+        else {
+            Flywheel.move_voltage(0);
+            activeShooterMedium = false;
+        }
     }
     else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2) == 1) {
-        FlywheelMacro();
-    }
+        if(activeShooterLow == false) {
+            Flywheel.move_voltage(0.70*12000);
+            activeShooterLow = true;
+            activeShooterHigh = false;
+            activeShooterMedium = false;
 
-    if(activeShooter80) {
-        Flywheel.move_voltage(0.86*12000);
-    }
-    else if(activeShooter100) {
-        Flywheel.move_voltage(12000);
-    }
-    else {
-        Flywheel.move_voltage(0);
+        }
+        else {
+            Flywheel.move_voltage(0);
+            activeShooterLow = false;
+        }
     }
 
 };
+
+
+
+//86 r1
+//70 r2 quitar macro
+//80 b
