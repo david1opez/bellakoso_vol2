@@ -25,8 +25,8 @@ void ActivateSystem(const ActivateSystemParams& params) {
             Intaker.move_voltage(12000);
             Shooter.move_voltage(-12000);
             pros::delay(params.miliseconds);
-            Intaker.move(0);
-            Shooter.move(0);
+            Intaker.move_voltage(0);
+            Shooter.move_voltage(0);
         }
     }
 
@@ -38,7 +38,7 @@ void ActivateSystem(const ActivateSystemParams& params) {
                     Flywheel.move_voltage(12000);
                 }
                 else if (params.activate == false) {
-                    Flywheel.move(0);
+                    Flywheel.move_voltage(0);
                 }
             }
         }

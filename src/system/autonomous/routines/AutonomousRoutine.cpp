@@ -8,23 +8,36 @@ void AutonomousRoutine(Status Components_Status) {
         .reverse = true,
         .timeout = 50,
         .subsystem = "roller-backwards",
-        .subsystemTimeout = 114
+        .subsystemTimeout = 114,
     });
 
-    // TranslateInches({
-    //     .distance = 3,
-    //     .timeout = 1000
-    // });
-
-    // Move Roller
-    // TranslateInches(3, true, 0, 1, 50, "roller-backwards", 114);
-    // TranslateInches(3, false, 0, 1, 1000, "", 0);
-
+    TranslateInches({
+        .distance = 3,
+        .timeout = 1000
+    });
     // Pick first disc
     // TranslateInches(8.5, false, -40.2, 1, 3000, "intaker", 1500);
+    TranslateInches({
+        .distance = 8.5,
+        .angle = -40.2,
+        .timeout = 3000,
+        .subsystem = "intaker",
+        .subsystemTimeout = 1500,
+    });
+
+
 
     // Move backwards to turn
     // TranslateInches(3, true, -40, 1, 150, "intaker", 1000);
+    TranslateInches({
+        .distance = 3,
+        .reverse = true,
+        .angle = -40,
+        .timeout = 150,
+        .subsystem = "intaker",
+        .subsystemTimeout = 1000,
+
+    });
 
     // Charge Flywheel
     // ActivateSystem("flywheel", 12000, true);

@@ -70,7 +70,7 @@ void TranslateInches(const TranslateParams& params) {
     bool arrived = false;
 
     if(params.subsystem != "") {
-        ActivateSystem({.system=params.subsystem, .activate=true});
+        ActivateSystem({.system=params.subsystem,  .simultaneous = true, .activate=true});
     }
 
     while(!arrived && params.timeout > 0) {
