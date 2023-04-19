@@ -46,12 +46,14 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
     derivative = error == 0 ? 0 : derivative;
 
     double finalPower = ceil(proportion + integral + derivative);
+    int maxValue = power*powerConstant;
+    maxValue = min(12000, maxValue);
 
-    if(finalPower > power*powerConstant) {
-        finalPower = power*powerConstant;
+    if(finalPower > maxValue) {
+        finalPower = maxValue;
     }
-    else if(finalPower < -power*powerConstant) {
-        finalPower = -power*powerConstant;
+    else if(finalPower < -maxValue) {
+        finalPower = -maxValue;
     }
     else {
         finalPower = finalPower;
