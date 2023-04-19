@@ -4,10 +4,14 @@ double startingDistance = 0.0;
 double integralRaw = 0.0;
 double lastError = 0.0;
 
+double KP = 1000.0;
+double KI = 500;
+double KD = 0.000001;
+
 double TranslatePID(double targetDistance, double currentDistance, double power) {
     std::cout << "Target distance: " << targetDistance << std::endl;
     std::cout << "Current distance: " << currentDistance << std::endl;
-    
+    targetDistance /= 2;
     double powerConstant = 8000;
 
     if(startingDistance == 0) {
@@ -15,10 +19,10 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
     }
 
     double activeIntegralZone = startingDistance*0.45;
-    double integralPowerLimit = 50 / TRANSLATE_KI;
+    double integralPowerLimit = 50 / KI;
 
     double error = targetDistance - currentDistance;
-    double proportion = TRANSLATE_KP * error;
+    double proportion = KP * error;
 
     if (fabs(error) > activeIntegralZone && error != 0) {
         integralRaw = 0;
@@ -37,9 +41,9 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
         integralRaw = integralRaw;
     }
     
-    double integral = TRANSLATE_KI * integralRaw;
+    double integral = KI * integralRaw;
 
-    double derivative = TRANSLATE_KD * (error - lastError);
+    double derivative = KD * (error - lastError);
 
     lastError = error;
 

@@ -59,7 +59,7 @@ void TranslateInches(const TranslateParams& params) {
     double currentAngle = updateAngle();
 
     double angleMarginError = 3.5;
-    double distanceMarginError = 0.9;
+    double distanceMarginError = 1;
 
     double previousDistance = updateDistance(currentDistance);
     long previousAngle = updateAngle();
