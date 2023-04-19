@@ -33,7 +33,7 @@ void Turn(int power);
  * 
 */
 
-void Move(int power);
+void Move(double targetDistance, double currentDistance, int power);
 
 /**
  * @brief Stops the robot

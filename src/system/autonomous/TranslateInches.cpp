@@ -59,7 +59,7 @@ void TranslateInches(const TranslateParams& params) {
     double currentAngle = updateAngle();
 
     double angleMarginError = 3.5;
-    double distanceMarginError = 0.5;
+    double distanceMarginError = 0.9;
 
     double previousDistance = updateDistance(currentDistance);
     long previousAngle = updateAngle();
@@ -107,10 +107,10 @@ void TranslateInches(const TranslateParams& params) {
                 distanceDiference = params.distance - currentDistance;
 
                 if(distanceDiference > distanceMarginError) {
-                    Move(power);
+                    Move(params.distance, currentDistance, power);
                 }
-                else if(distanceDiference < -distanceMarginError) {                    
-                    Move(-power);
+                else if(distanceDiference < -distanceMarginError) {
+                    Move(params.distance, currentDistance, -power);
                 }
             }
             else {

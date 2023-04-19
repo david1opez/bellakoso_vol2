@@ -25,8 +25,9 @@ void Turn(int power) {
     Left_Back_Bottom_Wheel.move_voltage(-voltage);
 }
 
-void Move(int power) {
-    int voltage = power < 0 ? -7000 : 7000;
+void Move(double targetDistance, double currentDistance, int power) {
+    // int voltage = power < 0 ? -7000 : 7000;
+    int voltage = power < 0 ? -TranslatePID(targetDistance, currentDistance, abs(power)) : TranslatePID(targetDistance, currentDistance, power);
 
     Right_Front_Wheel.move_voltage(voltage);
     Right_Back_Top_Wheel.move_voltage(voltage);
