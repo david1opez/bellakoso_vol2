@@ -42,6 +42,17 @@
 #include "./components/others.h"
 
 /**
+ * Control Systems
+ */
+#include "./systems/control/Drive.h"
+#include "./systems/control/HandleIntaker.h"
+#include "./systems/control/HandleFlywheel.h"
+#include "./systems/control/HandleRoller.h"
+#include "./systems/control/RestartComponents.h"
+#include "./systems/control/HandleExpansion.h"
+#include "./systems/control/EndgameCountdown.h"
+
+/**
  * Autonomous Systems
  */
 #include "./systems/autonomous/routines/AutonomousRoutine.h"
@@ -54,17 +65,6 @@
 */
 #include "./systems/positioning/GetCoords.h"
 #include "./systems/positioning/BackupSystems.h"
-
-/**
- * Control Systems
- */
-#include "./systems/control/Drive.h"
-#include "./systems/control/HandleIntaker.h"
-#include "./systems/control/HandleFlywheel.h"
-#include "./systems/control/HandleRoller.h"
-#include "./systems/control/RestartComponents.h"
-#include "./systems/control/HandleExpansion.h"
-#include "./systems/control/EndgameCountdown.h"
 
 /**
  * PID Systems
