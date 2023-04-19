@@ -17,6 +17,20 @@
  * @param miliseconds The amount of time to activate the subsystem
  * 
 */
-void ActivateSystem(std::string system, std::optional<int> miliseconds = std::nullopt, std::optional<bool> activate = std::nullopt);
+
+struct ActivateSystemParams {
+    std::string system = "";
+    int miliseconds = 0;
+    bool simultaneous = false;
+    bool activate = false;
+    bool backwards = false;
+    // Flywheel parameters
+    int flywheelRPMs = 191;
+    int discs = 0;
+};
+
+void Shoot();
+
+void ActivateSystem(const ActivateSystemParams& params);
 
 #endif // __ACTIVATE_SYSTEM_H__

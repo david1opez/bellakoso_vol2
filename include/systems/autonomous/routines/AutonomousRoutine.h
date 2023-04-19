@@ -15,6 +15,6 @@
  * 
 */
 
-void AutonomousRoutine();
+void AutonomousRoutine(Status Components_Status);
 
 #endif // __AUTONOMOUS_ROUTINE_H__

@@ -7,104 +7,92 @@ void Shoot() {
     Shooter.move_voltage(0);
 }
 
-void ActivateSystem(std::string system, std::optional<int> miliseconds, std::optional<bool> activate) {
-    std::transform(system.begin(), system.end(), system.begin(), ::tolower);
+void ActivateSystem(const ActivateSystemParams& params) {
+    // std::transform(params.system.begin(), params.system.end(), params.system.begin(), ::tolower);
 
-    if(system == "intaker") {
-        if(activate.has_value()) {
-            if(activate.value() == true) {
+    // Intaker
+    if(params.system == "intaker") {
+        if(params.simultaneous == true) {
+            if(params.activate == true) {
                 Intaker.move_voltage(12000);
                 Shooter.move_voltage(-12000);
             } else {
                 Intaker.move_voltage(0);
                 Shooter.move_voltage(0);
             }
-        } else {
+        }
+        else {
             Intaker.move_voltage(12000);
             Shooter.move_voltage(-12000);
-            pros::delay(miliseconds.value());
+            pros::delay(params.miliseconds);
             Intaker.move(0);
             Shooter.move(0);
         }
     }
 
-    else if(system.find("flywheel") != std::string::npos) {
-        //For the flywheel "miliseconds" is the voltage
-
-        char lastChar = system.back();
-        int num = (int) lastChar;
-
-        if (!miliseconds.has_value()) {
-            miliseconds.value() = 12000;
-        }
-
-
-        if(lastChar == 'l') {
-            if(activate.has_value()) {
-                if(activate.value() == true) {
-                    Flywheel.move_voltage(miliseconds.value());
+    // Flywheel
+    else if(params.system.find("flywheel") != std::string::npos) {
+        if(params.discs == 0) {
+            if(params.activate) {
+                if(params.activate == true) {
+                    Flywheel.move_voltage(12000);
                 }
-                else if (activate.value() == false) {
+                else if (params.activate == false) {
                     Flywheel.move(0);
                 }
             }
         }
         else {
-            Flywheel.move_voltage(miliseconds.value());
+            int discsCount = 0;
 
-            if(activate.value() == true) {
-                pros::delay(2000);
-            }
+            while(discsCount < params.discs){
+                while(Flywheel.get_actual_velocity() < params.flywheelRPMs) {
+                    // Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs));
+                    Flywheel.move_voltage(12000);
 
-            for(int i = 1; i < num; i++) {
-                Shoot();
+                    if(Flywheel.get_actual_velocity() >= params.flywheelRPMs) {
+                        Shoot();
+                        discsCount++;
+                    };
+                }
             }
 
             Flywheel.move(0);
         }
     }
 
-    else if(system.find("roller") != std::string::npos) {
-        int voltage = 12000;
-
-        if(system.find("backwards") != std::string::npos) {
-            voltage = -12000;
-        }
-
-        if(activate.has_value()) {
-            if(activate.value() == true) {
-                Roller.move_voltage(voltage);
+    // Roller
+    else if(params.system.find("roller") != std::string::npos) {
+        if(params.simultaneous) {
+            if(params.activate == true) {
+                Roller.move_voltage(params.backwards ? -12000 : 12000);
             } else {
-                Roller.move(0);
+                Roller.move_voltage(0);
             }
         } else {
-            Roller.move_voltage(voltage);
-            pros::delay(miliseconds.value());
+            Roller.move_voltage(params.backwards ? -12000 : 12000);
+            pros::delay(params.miliseconds);
             Roller.move(0);
         }
     }
     
-    else if(system.find("shooter") != std::string::npos) {
-        int voltage = 12000;
-
-        if(system.find("backwards") != std::string::npos) {
-            voltage = -12000;
-        }
-
-        if(activate.has_value()) {
-            if(activate.value() == true) {
-                Shooter.move_voltage(voltage);
+    // Shooter
+    else if(params.system.find("shooter") != std::string::npos) {
+        if(params.simultaneous) {
+            if(params.activate == true) {
+                Shooter.move_voltage(params.backwards ? -12000 : 12000);
             } else {
-                Shooter.move(0);
+                Shooter.move_voltage(0);
             }
         } else {
-            Shooter.move_voltage(voltage);
-            pros::delay(miliseconds.value());
+            Shooter.move_voltage(params.backwards ? -12000 : 12000);
+            pros::delay(params.miliseconds);
             Shooter.move(0);
         }
     }
 
-    else if(system == "expansion") {
+    // Intake
+    else if(params.system == "expansion") {
         Expansion_Piston.set_value(true);
     }
 }

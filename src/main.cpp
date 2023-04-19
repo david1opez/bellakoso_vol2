@@ -6,8 +6,11 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
+Status Components_Status;
+
 void initialize() {
-	RestartComponents();
+	Components_Status = RestartComponents();
 
 	pros::Task updateCoordsTask(updateCoords);
 }
@@ -59,7 +62,7 @@ void autonomous() {}
 void opcontrol() {
 	int countdown = 75000;
 
-	AutonomousRoutine();
+	AutonomousRoutine(Components_Status);
 	
 	while (true) {
 		Drive();
