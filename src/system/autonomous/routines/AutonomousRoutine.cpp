@@ -51,9 +51,22 @@ void AutonomousRoutine(Status Components_Status) {
     // });
 
     // TranslateInches(12, false, -44, 1, 2000, "", 100);
+    // TranslateInches({
+    //     .distance = 12,
+    //     .angle = -44,
+    //     .timeout = 7000,
+    //     .subsystem = "",
+    //     .subsystemTimeout = 1000,
+    // });
+
 
     // Shoot 3 discs without charging the flywheel
     // ActivateSystem("flywheel 3", 11800, true);
+    //ActivateSystem({
+    //    .system = "flywheel",
+    //    .discs = true
+    //});
+    
 
     // Turn off flywheel
     // ActivateSystem("flywheel", 0, false);
