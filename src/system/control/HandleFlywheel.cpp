@@ -46,9 +46,3 @@ void HandleFlywheel() {
     }
 
 };
-
-
-
-//86 r1
-//70 r2 quitar macro
-//80 b
