@@ -139,6 +139,8 @@ void TranslateInches(const TranslateParams& params) {
 
     while(subsystemTimeout > 0) {
         ActivateSystem({.system=params.subsystem,  .simultaneous = true, .activate=true, .backwards=params.backwards});
+        subsystemTimeout-=5;
+        pros::delay(5);
     }
 
     Stop();

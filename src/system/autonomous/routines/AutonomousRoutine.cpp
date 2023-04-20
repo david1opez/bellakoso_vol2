@@ -5,18 +5,19 @@ void AutonomousRoutine(Status Components_Status) {
     TranslateInches({
         .componentsStatus = Components_Status,
         .PID = false,
-        .distance = 2.27,
+        .distance = 3,
         .reverse = true,
         .translatePower = 15,
-        .timeout = 50,
+        .timeout = 70,
         .subsystem = "roller",
-        .subsystemTimeout = 1004,
+        .subsystemTimeout = 160,
         .backwards = true,
     });
 
     TranslateInches({
         .PID = false,
         .distance = 3,
+        .timeout = 70
     });
 
     // Pick first disc
