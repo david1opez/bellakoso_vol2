@@ -7,61 +7,55 @@ void AutonomousRoutine(Status Components_Status) {
         .PID = false,
         .distance = 3,
         .reverse = true,
-        .translatePower = 15,
-        .timeout = 70,
+        .timeout = 45,
         .subsystem = "roller",
-        .subsystemTimeout = 160,
+        .subsystemTimeout = 190,
         .backwards = true,
     });
 
     TranslateInches({
         .PID = false,
-        .distance = 3,
-        .timeout = 70
+        .distance = 4,
+        .timeout = 200
     });
 
     // Pick first disc
-    // TranslateInches({
-    //     .distance = 8.5,
-    //     .angle = -40.2,
-    //     .timeout = 3000,
-    //     .subsystem = "intaker",
-    //     .subsystemTimeout = 1500,
-    // });
+    TranslateInches({
+        .distance = 11,
+        .angle = -41,
+        .timeout = 3000,
+        .subsystem = "intaker",
+        .subsystemTimeout = 1200,
+    });
 
-
-
-    // Move backwards to turn
-    // TranslateInches({
-    //     .distance = 3,
-    //     .reverse = true,
-    //     .angle = -40,
-    //     .timeout = 150,
-    //     .subsystem = "intaker",
-    //     .subsystemTimeout = 1000,
-    // });
+    TranslateInches({
+        .PID = false,
+        .distance = 4,
+        .reverse = true,
+        .angle = -41,
+        .timeout = 120
+    });
 
     // Charge Flywheel
-    // ActivateSystem("flywheel", 12000, true);
+    ActivateSystem({
+        .system = "flywheel",
+        .activate = true,
+    });
 
     // Move to first shooting position
-    // TranslateInches(20, false, 35, 1, 7000, "intaker", 1000);
-    // TranslateInches({
-    //     .distance = 20,
-    //     .angle = 35,
-    //     .timeout = 7000,
-    //     .subsystem = "intaker",
-    //     .subsystemTimeout = 1000,
-    // });
+    TranslateInches({
+        .distance = 17,
+        .angle = 41,
+        .timeout = 5000,
+        .subsystem = "intaker",
+        .subsystemTimeout = 1200,
+    });
 
-    // TranslateInches(12, false, -44, 1, 2000, "", 100);
-    // TranslateInches({
-    //     .distance = 12,
-    //     .angle = -44,
-    //     .timeout = 7000,
-    //     .subsystem = "",
-    //     .subsystemTimeout = 1000,
-    // });
+    TranslateInches({
+        .distance = 7,
+        .angle = -22,
+        .timeout = 5000,
+    });
 
 
     // Shoot 3 discs without charging the flywheel
