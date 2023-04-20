@@ -59,12 +59,13 @@ void TranslateInches(const TranslateParams& params) {
     double currentAngle = updateAngle();
 
     double angleMarginError = 3.5;
-    double distanceMarginError = 1;
+    double distanceMarginError = 0.5;
 
     double previousDistance = updateDistance(currentDistance);
     long previousAngle = updateAngle();
 
     double angleDiference = params.angle - currentAngle;
+    double realDistance = params.distance / 2;
     double distanceDiference = params.distance;
 
     bool arrived = false;
@@ -104,13 +105,13 @@ void TranslateInches(const TranslateParams& params) {
             currentDistance = params.reverse ? -updateDistance(previousDistance) : updateDistance(previousDistance);
             
             if(abs(distanceDiference) > distanceMarginError) {
-                distanceDiference = params.distance - currentDistance;
+                distanceDiference = realDistance - currentDistance;
 
                 if(distanceDiference > distanceMarginError) {
-                    Move(params.distance, currentDistance, power);
+                    Move(realDistance, currentDistance, power);
                 }
                 else if(distanceDiference < -distanceMarginError) {
-                    Move(params.distance, currentDistance, -power);
+                    Move(realDistance, currentDistance, -power);
                 }
             }
             else {

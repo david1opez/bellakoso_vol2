@@ -4,11 +4,11 @@ void AutonomousRoutine(Status Components_Status) {
     // Move Roller
     TranslateInches({
         .componentsStatus = Components_Status,
-        .distance = 24,
-        // .reverse = true,
-        .timeout = 5000,
-        // .subsystem = "roller-backwards",
-        // .subsystemTimeout = 114,
+        .distance = 3,
+        .reverse = true,
+        .timeout = 50,
+        .subsystem = "roller-backwards",
+        .subsystemTimeout = 114,
     });
 
     // TranslateInches({
