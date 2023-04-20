@@ -71,10 +71,10 @@ void TranslateInches(const TranslateParams& params) {
     bool arrived = false;
 
     if(params.subsystem != "") {
-        ActivateSystem({.system=params.subsystem,  .simultaneous = true, .activate=true});
+        ActivateSystem({.system=params.subsystem,  .simultaneous = true, .activate=true, .backwards=params.backwards});
     }
 
-    while(!arrived && params.timeout > 0) {
+    while(!arrived && timeout > 0) {
         if((params.timeout - timeout) % 500 == 0) {
             if(!Encoder_Works) {
                 auto [x, IMU_Works] = CheckSensors(true, previousDistance, previousAngle);
@@ -88,16 +88,16 @@ void TranslateInches(const TranslateParams& params) {
         currentAngle = updateAngle();
         angleDiference = params.angle - currentAngle;
 
-        if(params.subsystemTimeout <= 0) {
+        if(subsystemTimeout <= 0) {
             ActivateSystem({.system=params.subsystem, .activate=false});
         }
 
         if(abs(angleDiference) >= angleMarginError) {
             if(angleDiference > angleMarginError) {
-                Turn(1);
+                Turn(params.angle, currentAngle, 1);
             }
             else if(angleDiference < -angleMarginError) {
-                Turn(-1);
+                Turn(params.angle, currentAngle, -1);
             }
         } else {
             int power = params.reverse ? -params.translatePower : params.translatePower;
@@ -108,10 +108,18 @@ void TranslateInches(const TranslateParams& params) {
                 distanceDiference = realDistance - currentDistance;
 
                 if(distanceDiference > distanceMarginError) {
-                    Move(realDistance, currentDistance, power);
+                    if(params.PID) {
+                        Move(realDistance, currentDistance, power);
+                    } else {
+                        Move(power);
+                    }
                 }
                 else if(distanceDiference < -distanceMarginError) {
-                    Move(realDistance, currentDistance, -power);
+                    if(params.PID) {
+                        Move(realDistance, currentDistance, -power);
+                    } else {
+                        Move(-power);
+                    }
                 }
             }
             else {
@@ -127,6 +135,10 @@ void TranslateInches(const TranslateParams& params) {
         timeout-=5;
         subsystemTimeout-=5;
         pros::delay(5);
+    }
+
+    while(subsystemTimeout > 0) {
+        ActivateSystem({.system=params.subsystem,  .simultaneous = true, .activate=true, .backwards=params.backwards});
     }
 
     Stop();

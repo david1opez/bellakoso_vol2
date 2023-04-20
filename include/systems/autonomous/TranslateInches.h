@@ -7,6 +7,7 @@ struct TranslateParams {
     // Initialize parameter
     Status componentsStatus;
     // Translate parameters
+    bool PID = true;
     double distance = 0;
     bool reverse = false;
     double angle = 0;

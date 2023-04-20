@@ -8,8 +8,6 @@ void Shoot() {
 }
 
 void ActivateSystem(const ActivateSystemParams& params) {
-    // std::transform(params.system.begin(), params.system.end(), params.system.begin(), ::tolower);
-
     // Intaker
     if(params.system == "intaker") {
         if(params.simultaneous == true) {

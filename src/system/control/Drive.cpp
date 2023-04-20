@@ -13,8 +13,10 @@ void Drive() {
     Left_Back_Bottom_Wheel.move(power + turn);
 };
 
-void Turn(int power) {
-    int voltage = power < 0 ? 3000 : -3000;
+void Turn(double targetAngle, double currentAngle, int power) {
+    int voltage = power < 0 ? RotatePID(targetAngle, currentAngle, power) : -RotatePID(targetAngle, currentAngle, power);
+    
+    voltage = power < 0 ? 3000 : -3000;
 
     Right_Front_Wheel.move_voltage(voltage);
     Right_Back_Top_Wheel.move_voltage(voltage);
@@ -25,9 +27,14 @@ void Turn(int power) {
     Left_Back_Bottom_Wheel.move_voltage(-voltage);
 }
 
-void Move(double targetDistance, double currentDistance, int power) {
-    // int voltage = power < 0 ? -7000 : 7000;
-    int voltage = power < 0 ? -TranslatePID(targetDistance, currentDistance, abs(power)) : TranslatePID(targetDistance, currentDistance, power);
+void Move(double targetDistance, std::optional<double> currentDistance, std::optional<int> power) {
+    int voltage;
+
+    if(power.has_value() && currentDistance.has_value()) {
+        voltage = power < 0 ? -TranslatePID(targetDistance, currentDistance.value(), abs(power.value())) : TranslatePID(targetDistance, currentDistance.value(), power.value());
+    } else {
+        voltage = targetDistance < 0 ? -7000 : 7000;
+    }
 
     Right_Front_Wheel.move_voltage(voltage);
     Right_Back_Top_Wheel.move_voltage(voltage);

@@ -4,20 +4,22 @@ double startingAngleDiference = 0.0;
 double rotateIntegralRaw = 0.0;
 double lastRotateError = 0.0;
 
-double RotatePID(double targetAngle, double power=1) {
-    double powerConstant = 5000;
+double KP = 200;
+double KI = 0.8;
+double KD = 0.0001;
 
-    double angleDiference = targetAngle - Inertial_Sensor.get_rotation();
+double RotatePID(double targetAngle, double currentAngle, double power) {
+    double powerConstant = 8000;
 
-    if(startingAngleDiference == 0) {
-        startingAngleDiference = angleDiference;
-    }
+    double angleDiference = targetAngle - currentAngle;
+
+    startingAngleDiference = angleDiference;
 
     double activeIntegralZone = startingAngleDiference*0.45;
-    double integralPowerLimit = 50 / ROTATE_KI;
+    double integralPowerLimit = 50 / KI;
 
     double error = angleDiference;
-    double proportion = ROTATE_KP * error;
+    double proportion = KP * error;
 
     if (fabs(error) < activeIntegralZone && error != 0) {
         rotateIntegralRaw = 0;
@@ -36,26 +38,29 @@ double RotatePID(double targetAngle, double power=1) {
         rotateIntegralRaw = rotateIntegralRaw;
     }
 
-    double integral = ROTATE_KI * rotateIntegralRaw;
+    double integral = KI * rotateIntegralRaw;
 
-    double derivative = ROTATE_KD * (error - lastRotateError);
+    double derivative = KD * (error - lastRotateError);
+
     lastRotateError = error;
 
-    derivative = error == 0 ? 0 : derivative ;
+    derivative = error == 0 ? 0 : derivative;
 
     double finalPower = ceil(proportion + integral + derivative);
 
-    if(finalPower > power*powerConstant) {
-        finalPower = power*powerConstant;
+    int maxValue = power*powerConstant;
+
+    if (maxValue > 12000)
+        maxValue = 12000;
+    if(finalPower > maxValue) {
+        finalPower = maxValue;
     }
-    else if (finalPower < -power*powerConstant) {
-        finalPower = -power*powerConstant;
+    else if(finalPower < -maxValue) {
+        finalPower = -maxValue;
     }
     else {
         finalPower = finalPower;
     }
-
-    finalPower = 12000 * (finalPower / 100);
 
     return finalPower;
 }

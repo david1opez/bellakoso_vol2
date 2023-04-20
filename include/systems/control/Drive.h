@@ -24,7 +24,7 @@ void Drive();
  * 
 */
 
-void Turn(int power);
+void Turn(double targetAngle, double currentAngle, int power);
 
 /**
  * @brief Moves the robot forwards or backwards
@@ -33,7 +33,11 @@ void Turn(int power);
  * 
 */
 
-void Move(double targetDistance, double currentDistance, int power);
+void Move(
+    double targetDistance,
+    std::optional<double> currentDistance = std::nullopt,
+    std::optional<int> power = std::nullopt
+);
 
 /**
  * @brief Stops the robot

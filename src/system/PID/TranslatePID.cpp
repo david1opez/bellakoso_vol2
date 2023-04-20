@@ -4,20 +4,16 @@ double startingDistance = 0.0;
 double integralRaw = 0.0;
 double lastError = 0.0;
 
-double KP = 1450;
-double KI = 620;
-double KD = 0.000001;
-
 double TranslatePID(double targetDistance, double currentDistance, double power) {
     double powerConstant = 8000;
 
     startingDistance = currentDistance;    
 
     double activeIntegralZone = startingDistance*0.45;
-    double integralPowerLimit = 50 / KI;
+    double integralPowerLimit = 50 / TRANSLATE_KI;
 
     double error = targetDistance - currentDistance;
-    double proportion = KP * error;
+    double proportion = TRANSLATE_KP * error;
 
     if (fabs(error) > activeIntegralZone && error != 0) {
         integralRaw = 0;
@@ -36,20 +32,20 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
         integralRaw = integralRaw;
     }
     
-    double integral = KI * integralRaw;
+    double integral = TRANSLATE_KI * integralRaw;
 
-    double derivative = KD * (error - lastError);
+    double derivative = TRANSLATE_KD * (error - lastError);
 
     lastError = error;
 
     derivative = error == 0 ? 0 : derivative;
 
     double finalPower = ceil(proportion + integral + derivative);
+    
     int maxValue = power*powerConstant;
 
     if (maxValue > 12000)
         maxValue = 12000;
-
     if(finalPower > maxValue) {
         finalPower = maxValue;
     }

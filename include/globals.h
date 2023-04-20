@@ -51,9 +51,9 @@
 #define M_PI 3.14159265358979323846
 #define WHEEL_DIAMETER 2.75 // Wheel Diameter (in inches)
 
-#define TRANSLATE_KP 1000
-#define TRANSLATE_KI 0.01
-#define TRANSLATE_KD 1
+#define TRANSLATE_KP 1450
+#define TRANSLATE_KI 620
+#define TRANSLATE_KD 0.000001
 
 #define ROTATE_KP 0.1
 #define ROTATE_KI 0.1

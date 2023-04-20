@@ -4,17 +4,20 @@ void AutonomousRoutine(Status Components_Status) {
     // Move Roller
     TranslateInches({
         .componentsStatus = Components_Status,
-        .distance = 3,
+        .PID = false,
+        .distance = 2.27,
         .reverse = true,
+        .translatePower = 15,
         .timeout = 50,
-        .subsystem = "roller-backwards",
-        .subsystemTimeout = 114,
+        .subsystem = "roller",
+        .subsystemTimeout = 1004,
+        .backwards = true,
     });
 
-    // TranslateInches({
-    //     .distance = 3,
-    //     .timeout = 1000
-    // });
+    TranslateInches({
+        .PID = false,
+        .distance = 3,
+    });
 
     // Pick first disc
     // TranslateInches({

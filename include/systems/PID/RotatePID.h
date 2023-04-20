@@ -18,6 +18,6 @@
  * @return The power to which move the chassis motors
 */
 
-double RotatePID(double targetAngle, double power);
+double RotatePID(double targetAngle, double currentAngle, double power);
 
 #endif /* __ROTATE_PID_H__ */
