@@ -1,6 +1,19 @@
 #include "main.h"
 
 Status RestartComponents() {
+    Flywheel.tare_position();
+    Roller.tare_position();
+    Intaker.tare_position();
+    Shooter.tare_position();
+
+    Right_Front_Wheel.tare_position();
+    Right_Back_Top_Wheel.tare_position();
+    Right_Back_Bottom_Wheel.tare_position();
+
+    Left_Front_Wheel.tare_position();
+    Left_Back_Top_Wheel.tare_position();
+    Left_Back_Bottom_Wheel.tare_position();
+
     Status status;
 
     if(Inertial_Sensor.reset() == INT32_MAX) {
