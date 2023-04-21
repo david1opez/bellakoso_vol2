@@ -71,6 +71,7 @@
  */
 #include "./systems/PID/TranslatePID.h"
 #include "./systems/PID/RotatePID.h"
+#include "./systems/PID/FlywheelPID.h"
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
