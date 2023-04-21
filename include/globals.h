@@ -36,6 +36,7 @@
 #define Y_AXIS_ENCODER_TOP_PORT 1 // Y Axis Encoder Top Port
 #define Y_AXIS_ENCODER_BOTTOM_PORT 2 // Y Axis Encoder Bottom Port
 
+#define ROTATION_SENSOR_PORT 1 // Rotation Sensor Port
 /*
 ==================================================
     OTHER PORTS
@@ -58,3 +59,8 @@
 #define ROTATE_KP 0.1
 #define ROTATE_KI 0.1
 #define ROTATE_KD 0.1
+
+
+#define FLYWHEEL_KP 175
+#define FLYWHEEL_KI 0.00000001
+#define FLYWHEEL_KD 0.00000001
