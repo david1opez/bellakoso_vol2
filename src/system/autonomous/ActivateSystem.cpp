@@ -40,18 +40,25 @@ void ActivateSystem(const ActivateSystemParams& params) {
             }
         }
         else {
-            int discsCount = 0;
+            int flywheelCounter = 0;
 
-            // Tal vez cambiar el primer while por un for loop y añadir un delay de casi nada
-            while(discsCount <= params.discs){
+            for(int discsCount = 0; discsCount < params.discs; discsCount++) {
                 while((Rotation_Sensor.get_velocity() / 100) * 16.66666 <= params.flywheelRPMs + 10) {
-                    Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs));
+                    int extraVoltage = flywheelCounter >= 3000 ? 150 : 0;
 
-                    if((Rotation_Sensor.get_velocity() / 100) * 16.66666 >= params.flywheelRPMs) {
+                    Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs) + extraVoltage);
+
+                    if((Rotation_Sensor.get_velocity() / 100) * 16.66666 >= params.flywheelRPMs || flywheelCounter >= 3000) {
                         Shoot();
-                        discsCount++;
+                        flywheelCounter = 0;
+                        break;
                     };
+
+                    pros::delay(1);
+                    flywheelCounter++;
                 }
+
+                pros::delay(30);
             }
 
             Flywheel.move(0);
