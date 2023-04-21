@@ -56,7 +56,5 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
         finalPower = finalPower;
     }
 
-    std::cout << finalPower << std::endl;
-
     return finalPower;
 }
