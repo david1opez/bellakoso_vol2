@@ -4,10 +4,6 @@ double startingAngleDiference = 0.0;
 double rotateIntegralRaw = 0.0;
 double lastRotateError = 0.0;
 
-double KP = 200;
-double KI = 0.8;
-double KD = 0.0001;
-
 double RotatePID(double targetAngle, double currentAngle, double power) {
     double powerConstant = 8000;
 
@@ -16,10 +12,10 @@ double RotatePID(double targetAngle, double currentAngle, double power) {
     startingAngleDiference = angleDiference;
 
     double activeIntegralZone = startingAngleDiference*0.45;
-    double integralPowerLimit = 50 / KI;
+    double integralPowerLimit = 50 / ROTATE_KI;
 
     double error = angleDiference;
-    double proportion = KP * error;
+    double proportion = ROTATE_KP * error;
 
     if (fabs(error) < activeIntegralZone && error != 0) {
         rotateIntegralRaw = 0;
@@ -38,9 +34,9 @@ double RotatePID(double targetAngle, double currentAngle, double power) {
         rotateIntegralRaw = rotateIntegralRaw;
     }
 
-    double integral = KI * rotateIntegralRaw;
+    double integral = ROTATE_KI * rotateIntegralRaw;
 
-    double derivative = KD * (error - lastRotateError);
+    double derivative = ROTATE_KD * (error - lastRotateError);
 
     lastRotateError = error;
 
