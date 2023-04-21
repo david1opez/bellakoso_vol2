@@ -1,7 +1,6 @@
 #include "main.h"
 
 void Shoot() {
-    pros::delay(950);
     Shooter.move_voltage(12000);
     pros::delay(65);
     Shooter.move_voltage(0);
@@ -33,7 +32,7 @@ void ActivateSystem(const ActivateSystemParams& params) {
         if(params.discs == 0) {
             if(params.activate) {
                 if(params.activate == true) {
-                    Flywheel.move_voltage(12000);
+                    Flywheel.move_voltage(11000);
                 }
                 else if (params.activate == false) {
                     Flywheel.move_voltage(0);
@@ -43,12 +42,12 @@ void ActivateSystem(const ActivateSystemParams& params) {
         else {
             int discsCount = 0;
 
-            while(discsCount < params.discs){
-                while(Flywheel.get_actual_velocity() < params.flywheelRPMs) {
-                    // Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs));
-                    Flywheel.move_voltage(12000);
+            // Tal vez cambiar el primer while por un for loop y añadir un delay de casi nada
+            while(discsCount <= params.discs){
+                while((Rotation_Sensor.get_velocity() / 100) * 16.66666 <= params.flywheelRPMs + 10) {
+                    Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs));
 
-                    if(Flywheel.get_actual_velocity() >= params.flywheelRPMs) {
+                    if((Rotation_Sensor.get_velocity() / 100) * 16.66666 >= params.flywheelRPMs) {
                         Shoot();
                         discsCount++;
                     };
