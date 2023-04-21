@@ -4,7 +4,6 @@ bool activeShooterHigh = false;
 bool activeShooterLow = false;
 bool activeShooterMedium = false;
 
-
 void HandleFlywheel() {
     if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1) == 1) {
         if(activeShooterHigh == false) {
