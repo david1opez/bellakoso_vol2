@@ -25,7 +25,7 @@ struct ActivateSystemParams {
     bool activate = false;
     bool backwards = false;
     // Flywheel parameters
-    int flywheelRPMs = 191;
+    int flywheelRPMs = 2000;
     int discs = 0;
 };
 
