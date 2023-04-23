@@ -68,7 +68,14 @@ void AutonomousRoutine(Status Components_Status) {
     ActivateSystem({
        .system = "flywheel",
        .flywheelRPMs = 3270,
-       .discs = 2,
+       .discs = 1,
+       .unjam = false,
+    });
+
+    ActivateSystem({
+       .system = "flywheel",
+       .flywheelRPMs = 3245,
+       .discs = 1,
     });
     
     // Move to second pickup position
@@ -118,7 +125,14 @@ void AutonomousRoutine(Status Components_Status) {
     ActivateSystem({
        .system = "flywheel",
        .flywheelRPMs = 3190,
-       .discs = 3,
+       .discs = 2,
+       .unjam = false
+    });
+
+    ActivateSystem({
+       .system = "flywheel",
+       .flywheelRPMs = 3180,
+       .discs = 1,
     });
 
     // Move to third pickup position
