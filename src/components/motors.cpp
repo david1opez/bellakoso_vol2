@@ -20,4 +20,7 @@ pros::Motor Shooter(SHOOTER_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_E
 pros::Motor Flywheel(FLYWHEEL_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES); // Flywheel Motor
 
 // Roller Motor
-pros::Motor Roller(ROLLER_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor Roller(ROLLER_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES); // Roller Motors
+
+// Expansion Motor
+pros::Motor Expansion_Motor(EXPANSION_PORT, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES); // Expansion Motor

@@ -3,7 +3,7 @@
 bool pistonActive = false;
 
 void HandleExpansion() {
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP) == 1 || Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP) == 1) {
+    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP) == 1 || Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A) == 1) {
         pistonActive = !pistonActive;
     }
 

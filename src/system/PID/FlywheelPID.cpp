@@ -10,8 +10,6 @@ double FlywheelPID(double targetRPMs) {
 
     double currentRPMs = (Rotation_Sensor.get_velocity() / 100) * 16.66666;
 
-    std::cout << "RPMs: " << currentRPMs << std::endl;
-
     startingrRPMs = currentRPMs;
 
     double activeIntegralZone = startingrRPMs*0.45;

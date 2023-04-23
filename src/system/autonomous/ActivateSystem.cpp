@@ -2,7 +2,13 @@
 
 void Shoot() {
     Shooter.move_voltage(12000);
-    pros::delay(65);
+    pros::delay(60);
+    Shooter.move_voltage(0);
+}
+
+void ShootHard() {
+    Shooter.move_voltage(12000);
+    pros::delay(115);
     Shooter.move_voltage(0);
 }
 
@@ -40,25 +46,27 @@ void ActivateSystem(const ActivateSystemParams& params) {
             }
         }
         else {
-            int flywheelCounter = 0;
-
             for(int discsCount = 0; discsCount < params.discs; discsCount++) {
-                while((Rotation_Sensor.get_velocity() / 100) * 16.66666 <= params.flywheelRPMs + 10) {
+                int flywheelCounter = 0;
+
+                while((Rotation_Sensor.get_velocity() / 100) * 16.66666 <= params.flywheelRPMs && flywheelCounter <= 1000) {
                     int extraVoltage = flywheelCounter >= 3000 ? 150 : 0;
 
                     Flywheel.move_voltage(FlywheelPID(params.flywheelRPMs) + extraVoltage);
 
-                    if((Rotation_Sensor.get_velocity() / 100) * 16.66666 >= params.flywheelRPMs || flywheelCounter >= 3000) {
-                        Shoot();
-                        flywheelCounter = 0;
-                        break;
-                    };
-
                     pros::delay(1);
                     flywheelCounter++;
                 }
+                
+                std::cout << "Shooting at " << (Rotation_Sensor.get_velocity() / 100) * 16.66666 << " RPMs, and " << flywheelCounter << " miliseconds" << std::endl;
 
-                pros::delay(30);
+                if(discsCount == 2) {
+                    ShootHard();
+                } else {
+                    Shoot();
+                }
+                Flywheel.move_voltage(0);
+                pros::delay(250);
             }
 
             Flywheel.move(0);

@@ -28,6 +28,9 @@ extern pros::Motor Shooter; // Shooter Motor
 extern pros::Motor Flywheel; // Flywheel Motor
 
 // Roller Motor
-extern pros::Motor Roller; // Roller Motorz
+extern pros::Motor Roller; // Roller Motors
+
+// Expansion Motor
+extern pros::Motor Expansion_Motor; // Expansion Motor
 
 #endif // __MOTORS_H__
