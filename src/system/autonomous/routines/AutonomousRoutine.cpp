@@ -25,7 +25,7 @@ void AutonomousRoutine(Status Components_Status) {
         .angle = -41,
         .timeout = 3000,
         .subsystem = "intaker",
-        .subsystemTimeout = 1300,
+        .subsystemTimeout = 1400,
     });
 
     TranslateInches({
@@ -177,7 +177,7 @@ void AutonomousRoutine(Status Components_Status) {
 
     TranslateInches({
         .distance = 7,
-        .angle = 25,
+        .angle = 20.5,
         .timeout = 2000,
         .subsystem = "intaker",
         .subsystemTimeout = 1000,

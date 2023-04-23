@@ -2,13 +2,13 @@
 
 void Shoot() {
     Shooter.move_voltage(12000);
-    pros::delay(70);
+    pros::delay(65);
     Shooter.move_voltage(0);
 }
 
 void ShootHard() {
     Shooter.move_voltage(12000);
-    pros::delay(115);
+    pros::delay(80);
     Shooter.move_voltage(0);
 }
 
@@ -60,7 +60,7 @@ void ActivateSystem(const ActivateSystemParams& params) {
                 
                 std::cout << "Shooting at " << (Rotation_Sensor.get_velocity() / 100) * 16.66666 << " RPMs, and " << flywheelCounter << " miliseconds" << std::endl;
 
-                if(discsCount == 2) {
+                if(discsCount == 0) {
                     ShootHard();
                 } else {
                     Shoot();
