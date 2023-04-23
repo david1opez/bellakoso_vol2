@@ -75,6 +75,8 @@ void TranslateInches(const TranslateParams& params) {
     }
 
     while(!arrived && timeout > 0) {
+        std::cout<< currentDistance << std::endl;
+
         if((params.timeout - timeout) % 500 == 0) {
             if(!Encoder_Works) {
                 auto [x, IMU_Works] = CheckSensors(true, previousDistance, previousAngle);
