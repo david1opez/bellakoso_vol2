@@ -62,6 +62,7 @@ void AutonomousRoutine(Status Components_Status) {
        .system = "flywheel",
        .flywheelRPMs = 3315,
        .discs = 1,
+       .unjam = false,
     });
 
     ActivateSystem({
@@ -146,7 +147,7 @@ void AutonomousRoutine(Status Components_Status) {
     // Move to third shooting position
     TranslateInches({
         .distance = 7.5,
-        .angle = -20,
+        .angle = -21,
         .timeout = 3000,
         .subsystem = "intaker",
         .subsystemTimeout = 2500,
@@ -199,6 +200,7 @@ void AutonomousRoutine(Status Components_Status) {
        .system = "flywheel",
        .flywheelRPMs = 3264,
        .discs = 1,
+       .unjam = false
     });
 
     ActivateSystem({

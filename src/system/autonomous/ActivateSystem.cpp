@@ -8,7 +8,7 @@ void Shoot() {
 
 void ShootHard() {
     Shooter.move_voltage(12000);
-    pros::delay(80);
+    pros::delay(300);
     Shooter.move_voltage(0);
 }
 
@@ -58,13 +58,16 @@ void ActivateSystem(const ActivateSystemParams& params) {
                     flywheelCounter++;
                 }
                 
-                std::cout << "Shooting at " << (Rotation_Sensor.get_velocity() / 100) * 16.66666 << " RPMs, and " << flywheelCounter << " miliseconds" << std::endl;
-
-                if(discsCount == 0) {
-                    ShootHard();
+                if(params.unjam) {
+                    if(discsCount == params.discs - 1) {
+                        ShootHard();
+                    } else {
+                        Shoot();
+                    }
                 } else {
                     Shoot();
                 }
+                
                 Flywheel.move_voltage(0);
                 pros::delay(500);
             }

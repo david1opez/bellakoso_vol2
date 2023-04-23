@@ -27,6 +27,7 @@ struct ActivateSystemParams {
     // Flywheel parameters
     int flywheelRPMs = 190;
     int discs = 0;
+    bool unjam = true;
 };
 
 void Shoot();
