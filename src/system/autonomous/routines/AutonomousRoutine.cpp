@@ -74,7 +74,7 @@ void AutonomousRoutine(Status Components_Status) {
 
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3245,
+       .flywheelRPMs = 3255,
        .discs = 1,
     });
     
