@@ -19,11 +19,9 @@ void CheckComponents() {
 double updateDistance (double previousDistance) {
     double currentDistance = 0.0;
 
-    if(Encoder_Works) {
-        currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
-    } else {
-        currentDistance = GetBackupDistance() - previousDistance;
-    }
+    
+    currentDistance = GetBackupDistance() - previousDistance;
+    
 
     return currentDistance;
 };
@@ -75,7 +73,7 @@ void TranslateInches(const TranslateParams& params) {
     }
 
     while(!arrived && timeout > 0) {
-        std::cout<< currentDistance << std::endl;
+        //std::cout<< currentDistance << std::endl;
 
         if((params.timeout - timeout) % 500 == 0) {
             if(!Encoder_Works) {
