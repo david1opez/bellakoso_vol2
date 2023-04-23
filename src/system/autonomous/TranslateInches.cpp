@@ -18,7 +18,7 @@ void CheckComponents() {
 
 double updateDistance (double previousDistance) {
     double currentDistance = 0.0;
-
+    Encoder_Works = Y_Axis_Encoder.get_value() != 0;
     if(Encoder_Works) {
         currentDistance = Y_Axis_Encoder.get_value() * WHEEL_DIAMETER * M_PI / 360.0 - previousDistance;
     } else {
