@@ -38,7 +38,7 @@ double updateDistance (double previousDistance) {
 
 double updateAngle() {
     double currentAngle;
-
+    IMU_Works = true;
     if(IMU_Works) {
         currentAngle = Inertial_Sensor.get_rotation();
     } else {
