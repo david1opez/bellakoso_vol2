@@ -16,11 +16,9 @@ void CheckComponents() {
     }
 };
 
-double GetBackupDistance() {
+double GetBackupDistancee() {
     double Left_Side_Encoders_Value = (Left_Back_Bottom_Wheel.get_position() + Left_Back_Top_Wheel.get_position() + Left_Front_Wheel.get_position()) / 3;
-    double Right_Side_Encoders_Value = (Right_Back_Bottom_Wheel.get_position() + Right_Back_Top_Wheel.get_position() + Right_Front_Wheel.get_position()) / 3;
-
-    std::cout << Left_Side_Encoders_Value << " " << Right_Side_Encoders_Value << std::endl;
+    double Right_Side_Encoders_Value = (-Right_Back_Bottom_Wheel.get_position() - Right_Back_Top_Wheel.get_position()) / 2;
 
     double Left_Side_Distance = Left_Side_Encoders_Value * 3.125 * M_PI / 360.0;
     double Right_Side_Distance = Right_Side_Encoders_Value * 3.125 * M_PI / 360.0;
@@ -33,7 +31,8 @@ double GetBackupDistance() {
 
 double updateDistance (double previousDistance) {
     double currentDistance = 0.0; 
-    currentDistance = GetBackupDistance() - previousDistance;
+    currentDistance = GetBackupDistancee() - previousDistance;
+    std::cout << currentDistance << std::endl;
     return currentDistance;
 };
 
@@ -84,18 +83,8 @@ void TranslateInches(const TranslateParams& params) {
     }
 
     while(!arrived && timeout > 0) {
-        //std::cout<< currentDistance << std::endl;
-
-        if((params.timeout - timeout) % 500 == 0) {
-            if(!Encoder_Works) {
-                auto [x, IMU_Works] = CheckSensors(true, previousDistance, previousAngle);
-            }
-
-            if(!IMU_Works) {
-                auto [Encoder_Works, x] = CheckSensors(true, previousDistance, previousAngle);
-            }
-        }
-
+        
+        std::cout << angleDiference << std::endl;
         currentAngle = updateAngle();
         angleDiference = params.angle - currentAngle;
 
@@ -112,6 +101,7 @@ void TranslateInches(const TranslateParams& params) {
             }
         } else {
             int power = params.reverse ? -params.translatePower : params.translatePower;
+
 
             currentDistance = params.reverse ? -updateDistance(previousDistance) : updateDistance(previousDistance);
             

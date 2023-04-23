@@ -4,7 +4,7 @@ void AutonomousRoutine(Status Components_Status) {
     //grabs the one in front
     TranslateInches({
         .componentsStatus = Components_Status,
-        .PID = true,
+        .PID = false,
         .distance = 5,//14.75
         .reverse = false,
         .angle = 0,
