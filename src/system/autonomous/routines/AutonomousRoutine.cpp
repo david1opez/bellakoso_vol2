@@ -60,13 +60,13 @@ void AutonomousRoutine(Status Components_Status) {
     // Shoot 3 discs without charging the flywheel
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3320,
+       .flywheelRPMs = 3315,
        .discs = 1,
     });
 
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3280,
+       .flywheelRPMs = 3270,
        .discs = 2,
     });
     
@@ -116,7 +116,7 @@ void AutonomousRoutine(Status Components_Status) {
     // Shoot 3 discs without charging the flywheel
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3200,
+       .flywheelRPMs = 3190,
        .discs = 3,
     });
 
@@ -146,7 +146,7 @@ void AutonomousRoutine(Status Components_Status) {
     // Move to third shooting position
     TranslateInches({
         .distance = 7.5,
-        .angle = -19,
+        .angle = -20,
         .timeout = 3000,
         .subsystem = "intaker",
         .subsystemTimeout = 2500,
@@ -155,13 +155,13 @@ void AutonomousRoutine(Status Components_Status) {
     // Shoot 2 discs without charging the flywheel
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3260,
+       .flywheelRPMs = 3255,
        .discs = 2,
     });
     
     // Move to fourth pickup position
     TranslateInches({
-        .distance = 50,
+        .distance = 48,
         .reverse = true,
         .angle = -6,
         .timeout = 2000
@@ -177,49 +177,33 @@ void AutonomousRoutine(Status Components_Status) {
 
     TranslateInches({
         .distance = 7,
-        .angle = 20.5,
+        .angle = 19,
         .timeout = 2000,
         .subsystem = "intaker",
         .subsystemTimeout = 1000,
     });
 
-    // // Move to fourth pickup position
-    // TranslateInches({
-    //     .distance = 9,
-    //     .angle = 45,
-    //     .subsystem = "intaker",
-    //     .subsystemTimeout = 800,
-    // });
+    // Charge Flywheel
+    ActivateSystem({
+        .system = "flywheel",
+        .activate = true,
+    });
 
-//     TranslateInches({
-//         .PID = false,
-//         .distance = 3,
-//         .reverse = true,
-//         .angle = 45,
-//         .subsystem = "intaker",
-//         .subsystemTimeout = 800,
-//     });
+    TranslateInches({
+        .distance = 23.5,
+        .angle = -25,
+        .timeout = 5000,
+    });
 
-//     TranslateInches({
-//         .distance = 14,
-//         .angle = 45,
-//         .subsystem = "intaker",
-//         .subsystemTimeout = 800,
-//     });
+    ActivateSystem({
+       .system = "flywheel",
+       .flywheelRPMs = 3264,
+       .discs = 1,
+    });
 
-//     TranslateInches({
-//         .PID = false,
-//         .distance = 3,
-//         .reverse = true,
-//         .angle = 45,
-//         .subsystem = "intaker",
-//         .subsystemTimeout = 800,
-//     });
-
-//     TranslateInches({
-//         .distance = 23,
-//         .angle = 45,
-//         .subsystem = "intaker",
-//         .subsystemTimeout = 800,
-//     });
+    ActivateSystem({
+       .system = "flywheel",
+       .flywheelRPMs = 3255,
+       .discs = 1,
+    });
 }
