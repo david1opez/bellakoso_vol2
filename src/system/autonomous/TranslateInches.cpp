@@ -67,14 +67,14 @@ void TranslateInches(const TranslateParams& params) {
     double currentDistance = 0.0;
     double currentAngle = updateAngle();
 
-    double angleMarginError = 1;
+    double angleMarginError = 3.5;
     double distanceMarginError = 0.5;
 
     double previousDistance = updateDistance(currentDistance);
     long previousAngle = updateAngle();
 
     double angleDiference = params.angle - currentAngle;
-    double realDistance = params.distance / 2;
+    double realDistance = params.distance;
     double distanceDiference = params.distance;
 
     bool arrived = false;

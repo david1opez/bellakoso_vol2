@@ -4,17 +4,17 @@ void AutonomousRoutine(Status Components_Status) {
     //grabs the one in front
     TranslateInches({
         .componentsStatus = Components_Status,
-        .PID = false,
-        .distance = 15.5,//14.75
+        .PID = true,
+        .distance = 24,//15.5
         .reverse = false,
         .angle = 0,
         //.translatePower = 15, //change later
-        .timeout = 10000,
+        .timeout = 2000,
         .subsystem = "intaker",
-        .subsystemTimeout = 8000,
+        .subsystemTimeout = 1500,
     });
-
-    
+    pros::delay(5000);
+    return;
     //charges flywheel??
     /*ActivateSystem({
         .system = "flywheel",
@@ -23,7 +23,7 @@ void AutonomousRoutine(Status Components_Status) {
 
     //goes to shooting position
     TranslateInches({
-        .PID = false,
+        .PID = true,
         .distance = 14,//full 18
         .reverse = false,
         .angle = -45,
