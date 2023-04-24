@@ -74,7 +74,7 @@ void AutonomousRoutine(Status Components_Status) {
 
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3255,
+       .flywheelRPMs = 3700,
        .discs = 1,
     });
     
@@ -170,7 +170,7 @@ void AutonomousRoutine(Status Components_Status) {
     // Shoot 2 discs without charging the flywheel
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3255,
+       .flywheelRPMs = 3250,
        .discs = 2,
     });
     
@@ -183,7 +183,15 @@ void AutonomousRoutine(Status Components_Status) {
     });
 
     TranslateInches({
-        .distance = 24,
+        .distance = 12,
+        .angle = 25,
+        .timeout = 2000,
+        .subsystem = "intaker",
+        .subsystemTimeout = 3000,
+    });
+
+    TranslateInches({
+        .distance = 7,
         .angle = 25,
         .timeout = 2000,
         .subsystem = "intaker",
@@ -208,6 +216,8 @@ void AutonomousRoutine(Status Components_Status) {
         .distance = 23.5,
         .angle = -25,
         .timeout = 5000,
+        .subsystem = "intaker",
+        .subsystemTimeout = 1500,
     });
 
     ActivateSystem({

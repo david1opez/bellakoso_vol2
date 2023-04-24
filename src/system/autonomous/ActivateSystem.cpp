@@ -2,7 +2,7 @@
 
 void Shoot() {
     Shooter.move_voltage(12000);
-    pros::delay(65);
+    pros::delay(60);
     Shooter.move_voltage(0);
 }
 
@@ -68,8 +68,9 @@ void ActivateSystem(const ActivateSystemParams& params) {
                     Shoot();
                 }
                 
+                pros::delay(65);
                 Flywheel.move_voltage(0);
-                pros::delay(500);
+                pros::delay(250);
             }
 
             Flywheel.move(0);
