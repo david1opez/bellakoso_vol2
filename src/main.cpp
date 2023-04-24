@@ -71,8 +71,6 @@ void opcontrol() {
 		HandleRoller();
 		HandleExpansion();
 
-		std::cout << "Y Axis Encoder: " << Y_Axis_Encoder.get_value() << std::endl;
-
 		countdown = EndgameCountdown(countdown);
 	}
 }

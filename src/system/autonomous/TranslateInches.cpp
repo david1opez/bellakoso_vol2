@@ -95,10 +95,10 @@ void TranslateInches(const TranslateParams& params) {
 
         if(abs(angleDiference) >= angleMarginError) {
             if(angleDiference > angleMarginError) {
-                Turn(params.angle, currentAngle, 1);
+                Turn(params.angle, currentAngle, -1);
             }
             else if(angleDiference < -angleMarginError) {
-                Turn(params.angle, currentAngle, -1);
+                Turn(params.angle, currentAngle, 1);
             }
         } else {
             int power = params.reverse ? -params.translatePower : params.translatePower;
@@ -120,7 +120,7 @@ void TranslateInches(const TranslateParams& params) {
                     if(params.PID) {
                         Move(realDistance, currentDistance, -power);
                     } else {
-                        std::cout << distanceDiference << std::endl;
+                        //std::cout << distanceDiference << std::endl;
                         Move(power);
                     }
                 }

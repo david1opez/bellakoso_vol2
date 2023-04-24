@@ -5,7 +5,7 @@
 */
 
 // Chassis
-#define RFWM_PORT 18 // Right Front Wheel Motor Port
+#define RFWM_PORT 17 // Right Front Wheel Motor Port
 #define RBTWM_PORT 9 // Right Back Top Wheel Motor Port
 #define RBBWM_PORT 14 // Right Back Bottom Wheel Motor Port
 
