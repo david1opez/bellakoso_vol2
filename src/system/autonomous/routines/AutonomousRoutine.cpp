@@ -5,15 +5,16 @@ void AutonomousRoutine(Status Components_Status) {
     TranslateInches({
         .componentsStatus = Components_Status,
         .PID = false,
-        .distance = 5,//14.75
+        .distance = 10,//14.75
         .reverse = false,
         .angle = 0,
         //.translatePower = 15, //change later
-        .timeout = 5000,
+        .timeout = 7000,
         .subsystem = "intaker",
-        .subsystemTimeout = 7000,
+        .subsystemTimeout = 2000,
     });
 
+    return;
     //charges flywheel??
     /*ActivateSystem({
         .system = "flywheel",

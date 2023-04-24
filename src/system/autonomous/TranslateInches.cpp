@@ -32,7 +32,7 @@ double GetBackupDistancee() {
 double updateDistance (double previousDistance) {
     double currentDistance = 0.0; 
     currentDistance = GetBackupDistancee() - previousDistance;
-    std::cout << currentDistance << std::endl;
+    //std::cout << currentDistance << std::endl;
     return currentDistance;
 };
 
@@ -49,6 +49,7 @@ double updateAngle() {
 };
 
 void TranslateInches(const TranslateParams& params) {
+
     // Setup
     auto [Encoder_Works, IMU_Works] = params.componentsStatus;
 
@@ -66,7 +67,7 @@ void TranslateInches(const TranslateParams& params) {
     double currentDistance = 0.0;
     double currentAngle = updateAngle();
 
-    double angleMarginError = 3.5;
+    double angleMarginError = 1;
     double distanceMarginError = 0.5;
 
     double previousDistance = updateDistance(currentDistance);
@@ -112,14 +113,15 @@ void TranslateInches(const TranslateParams& params) {
                     if(params.PID) {
                         Move(realDistance, currentDistance, power);
                     } else {
-                        Move(power);
+                        Move(-power);
                     }
                 }
                 else if(distanceDiference < -distanceMarginError) {
                     if(params.PID) {
                         Move(realDistance, currentDistance, -power);
                     } else {
-                        Move(-power);
+                        std::cout << distanceDiference << std::endl;
+                        Move(power);
                     }
                 }
             }

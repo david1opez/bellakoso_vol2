@@ -33,8 +33,8 @@
 
 #define INERTIAL_SENSOR_PORT 18 // Inertial Sensor Port
 
-#define Y_AXIS_ENCODER_TOP_PORT 1 // Y Axis Encoder Top Port
-#define Y_AXIS_ENCODER_BOTTOM_PORT 2 // Y Axis Encoder Bottom Port
+#define Y_AXIS_ENCODER_TOP_PORT 'B' // Y Axis Encoder Top Port
+#define Y_AXIS_ENCODER_BOTTOM_PORT 'C' // Y Axis Encoder Bottom Port
 
 #define ROTATION_SENSOR_PORT 1 // Rotation Sensor Port
 /*
