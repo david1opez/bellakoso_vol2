@@ -85,7 +85,7 @@ void TranslateInches(const TranslateParams& params) {
 
     while(!arrived && timeout > 0) {
         
-        std::cout << distanceDiference << std::endl;
+        std::cout << distanceDiference << " 1" << std::endl;
         currentAngle = updateAngle();
         angleDiference = params.angle - currentAngle;
 

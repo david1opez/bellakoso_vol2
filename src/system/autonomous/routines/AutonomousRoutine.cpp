@@ -16,12 +16,12 @@ void AutonomousRoutine(Status Components_Status) {
     TranslateInches({
         .componentsStatus = Components_Status,
         .PID = true,
-        .distance = 24,//15.5,18
+        .distance = 15,//15.5,18
         .reverse = false,
         .angle = 0,
-        .timeout = 3000,
+        .timeout = 10000,
         .subsystem = "intaker",
-        .subsystemTimeout = 3000,
+        .subsystemTimeout = 8000,
     });
 
     Stop();
