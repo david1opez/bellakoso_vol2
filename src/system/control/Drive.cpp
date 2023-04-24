@@ -44,7 +44,7 @@ void Move(double targetDistance, std::optional<double> currentDistance, std::opt
     if(power.has_value() && currentDistance.has_value()) {
         voltage = power < 0 ? -TranslatePID(targetDistance, currentDistance.value(), abs(power.value())) : TranslatePID(targetDistance, currentDistance.value(), power.value());
     } else {
-        voltage = targetDistance < 0 ? -7000 : 7000;
+        voltage = targetDistance < 0 ? -5000 : 5000;
     }
     int rightPower = (voltage);
     Right_Front_Wheel.move_voltage(rightPower);

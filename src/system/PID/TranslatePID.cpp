@@ -5,7 +5,7 @@ double integralRaw = 0.0;
 double lastError = 0.0;
 
 double TranslatePID(double targetDistance, double currentDistance, double power) {
-    double powerConstant = 9000;
+    double powerConstant = 10000;
 
     startingDistance = currentDistance;    
 
@@ -57,6 +57,9 @@ double TranslatePID(double targetDistance, double currentDistance, double power)
     }
 
     std::cout << finalPower << std::endl;
-
+    
+    
     return -finalPower;
+
+
 }

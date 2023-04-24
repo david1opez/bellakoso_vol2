@@ -18,7 +18,7 @@ void CheckComponents() {
 
 double GetBackupDistancee() {
     double Left_Side_Encoders_Value = (Left_Back_Bottom_Wheel.get_position() + Left_Back_Top_Wheel.get_position() + Left_Front_Wheel.get_position()) / 3;
-    double Right_Side_Encoders_Value = (-Right_Back_Bottom_Wheel.get_position() - Right_Back_Top_Wheel.get_position()) / 2;
+    double Right_Side_Encoders_Value = (-Right_Back_Bottom_Wheel.get_position() - Right_Back_Top_Wheel.get_position()+ Right_Front_Wheel.get_position()) / 3;
 
     double Left_Side_Distance = Left_Side_Encoders_Value * 3.125 * M_PI / 360.0;
     double Right_Side_Distance = Right_Side_Encoders_Value * 3.125 * M_PI / 360.0;
@@ -68,7 +68,7 @@ void TranslateInches(const TranslateParams& params) {
     double currentAngle = updateAngle();
 
     double angleMarginError = 3.5;
-    double distanceMarginError = 0.5;
+    double distanceMarginError = .01;
 
     double previousDistance = updateDistance(currentDistance);
     long previousAngle = updateAngle();
@@ -85,7 +85,7 @@ void TranslateInches(const TranslateParams& params) {
 
     while(!arrived && timeout > 0) {
         
-        std::cout << angleDiference << std::endl;
+        std::cout << distanceDiference << std::endl;
         currentAngle = updateAngle();
         angleDiference = params.angle - currentAngle;
 
