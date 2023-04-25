@@ -53,22 +53,6 @@ void AutonomousRoutine(Status Components_Status) {
         .timeout = 5000,
     });
 
-    Flywheel.move_voltage(12000);
-    pros::delay(2000);
-    Shooter.move_voltage(12000);
-    pros::delay(70);
-    Shooter.move_voltage(0);
-    pros::delay(200);
-    Shooter.move_voltage(12000);
-    pros::delay(70);
-    Shooter.move_voltage(0);
-    pros::delay(200);
-    Shooter.move_voltage(12000);
-    pros::delay(70);
-    Shooter.move_voltage(0);
-    pros::delay(200);
-    Flywheel.move_voltage(0);
-
     return;
     pros::delay(10000);
 
