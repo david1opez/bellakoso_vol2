@@ -2,7 +2,7 @@
 
 void Shoot() {
     Shooter.move_voltage(12000);
-    pros::delay(60);
+    pros::delay(65);
     Shooter.move_voltage(0);
 }
 

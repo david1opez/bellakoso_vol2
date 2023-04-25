@@ -124,7 +124,7 @@ void AutonomousRoutine(Status Components_Status) {
     // Shoot 3 discs without charging the flywheel
     ActivateSystem({
        .system = "flywheel",
-       .flywheelRPMs = 3190,
+       .flywheelRPMs = 3200,
        .discs = 2,
        .unjam = false
     });
@@ -172,6 +172,7 @@ void AutonomousRoutine(Status Components_Status) {
        .system = "flywheel",
        .flywheelRPMs = 3250,
        .discs = 2,
+       .unjam = false
     });
     
     // Move to fourth pickup position
@@ -185,9 +186,9 @@ void AutonomousRoutine(Status Components_Status) {
     TranslateInches({
         .distance = 12,
         .angle = 25,
-        .timeout = 2000,
+        .timeout = 1500,
         .subsystem = "intaker",
-        .subsystemTimeout = 3000,
+        .subsystemTimeout = 1500,
     });
 
     TranslateInches({
@@ -231,5 +232,31 @@ void AutonomousRoutine(Status Components_Status) {
        .system = "flywheel",
        .flywheelRPMs = 3255,
        .discs = 1,
+       .unjam = false
     });
+
+    TranslateInches({
+        .distance = 7,
+        .reverse = true,
+        .angle = -25,
+        .timeout = 5000,
+    });
+
+    Right_Front_Wheel.move_voltage(-8000);
+    Right_Back_Top_Wheel.move_voltage(-8000);
+    Right_Back_Bottom_Wheel.move_voltage(-8000);
+
+    Left_Front_Wheel.move_voltage(8000);
+    Left_Back_Top_Wheel.move_voltage(8000);
+    Left_Back_Bottom_Wheel.move_voltage(8000);
+
+    pros::delay(2500);
+
+    Right_Front_Wheel.move_voltage(0);
+    Right_Back_Top_Wheel.move_voltage(0);
+    Right_Back_Bottom_Wheel.move_voltage(0);
+
+    Left_Front_Wheel.move_voltage(0);
+    Left_Back_Top_Wheel.move_voltage(0);
+    Left_Back_Bottom_Wheel.move_voltage(0);
 }
