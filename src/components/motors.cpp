@@ -23,4 +23,4 @@ pros::Motor Flywheel(FLYWHEEL_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTO
 pros::Motor Roller(ROLLER_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 // Expansion Motor
-pros::Motor Expansion(2, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor Expansion(2, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
