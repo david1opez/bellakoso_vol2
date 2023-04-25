@@ -62,7 +62,7 @@ void autonomous() {}
 void opcontrol() {
 	int countdown = 75000;
 
-	AutonomousRoutine(Components_Status);
+	//AutonomousRoutine(Components_Status);
 	
 	while (true) {
 		Drive();
