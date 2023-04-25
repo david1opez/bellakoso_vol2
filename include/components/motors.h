@@ -30,6 +30,6 @@ extern pros::Motor Flywheel; // Flywheel Motor
 // Roller Motor
 extern pros::Motor Roller; // Roller Motorz
 
-
+extern pros::Motor Expansion;
 
 #endif // __MOTORS_H__

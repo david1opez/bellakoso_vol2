@@ -19,13 +19,12 @@ void AutonomousRoutine(Status Components_Status) {
         .distance = 15,//15.5,18
         .reverse = false,
         .angle = 0,
-        .timeout = 10000,
+        .timeout = 5000,
         .subsystem = "intaker",
-        .subsystemTimeout = 8000,
+        .subsystemTimeout = 3000,
     });
-
+    pros::delay(10);
     Stop();
-    pros::delay(10000);
     //charges flywheel??
     /*ActivateSystem({
         .system = "flywheel",
@@ -49,10 +48,28 @@ void AutonomousRoutine(Status Components_Status) {
         .PID = false,
         .distance = 0,
         .reverse = false,
-        .angle = -20,
+        .angle = -21,
         //.translatePower = 10, //change later
         .timeout = 5000,
     });
+
+    Flywheel.move_voltage(12000);
+    pros::delay(2000);
+    Shooter.move_voltage(12000);
+    pros::delay(70);
+    Shooter.move_voltage(0);
+    pros::delay(200);
+    Shooter.move_voltage(12000);
+    pros::delay(70);
+    Shooter.move_voltage(0);
+    pros::delay(200);
+    Shooter.move_voltage(12000);
+    pros::delay(70);
+    Shooter.move_voltage(0);
+    pros::delay(200);
+    Flywheel.move_voltage(0);
+
+    return;
     pros::delay(10000);
 
     //shoots first 3
