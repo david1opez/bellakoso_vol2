@@ -25,6 +25,8 @@
 // Roller
 #define ROLLER_PORT 3 // Roller Motor Port
 
+#define EXPANSION_PORT 2;
+
 /*
 ==================================================
     SENSOR PORTS

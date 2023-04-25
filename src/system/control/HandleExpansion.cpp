@@ -1,16 +1,9 @@
 #include "main.h"
 
-bool pistonActive = false;
+// bool pistonActive = false;
 
 void HandleExpansion() {
     if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A) == 1) {
-        pistonActive = !pistonActive;
-    }
-
-    if(pistonActive == true) {
-        Expansion_Piston.set_value(true);
-    }
-    else{
-        Expansion_Piston.set_value(false);
+        Expansion.move_absolute(200, 100);
     }
 }
