@@ -24,3 +24,6 @@ pros::Motor Roller(ROLLER_PORT, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_EN
 
 // Expansion Motor
 pros::Motor Expansion(2, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
+
+// Expansion Blocker Motor
+pros::Motor Expansion_Blocker(11, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);

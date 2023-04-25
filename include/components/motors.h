@@ -32,4 +32,6 @@ extern pros::Motor Roller; // Roller Motorz
 
 extern pros::Motor Expansion;
 
+extern pros::Motor Expansion_Blocker;
+
 #endif // __MOTORS_H__
